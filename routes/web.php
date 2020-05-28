@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('universite', 'UniversiteController@get_univ');
+Route::post('email', 'UniversiteController@get_domain');
