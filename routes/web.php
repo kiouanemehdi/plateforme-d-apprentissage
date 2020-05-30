@@ -18,3 +18,9 @@ Route::get('/', function () {
 });
 Route::get('universite', 'UniversiteController@get_univ');
 Route::post('email', 'UniversiteController@get_domain');
+Route::post('email_verification', 'EtudiantController@test_email');
+
+Route::post('last_step_etd', 'EtudiantController@register');
+Route::post('last_step_prf', 'ProfController@register');
+
+Route::get('test_session', 'EtudiantController@test_session');

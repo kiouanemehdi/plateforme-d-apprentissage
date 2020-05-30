@@ -6,11 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-<form action="" methode="POST">
+
+<form action="email_verification" method="POST">
 @csrf
-    <p>email doit avoir le domaine : <?php echo "edu.".$domain; ?><br>
         <label>entrer email</label>
-        <input name="email">
+        <input type="text" name="email"></input><br>
+        <label>confirmer l'email</label>
+        <input type="text" name="email_confirm"></input>
          <button type='submit'> choisir </button>           
     </form>
     

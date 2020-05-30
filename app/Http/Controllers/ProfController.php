@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Prof;
 class ProfController extends Controller
 {
+    
+    public function register(Request $request)
+    {
+        //check code verification
+        //verify password
+        //save in table Prof
+    }
+
     /**
      * Display a listing of the resource.
      *

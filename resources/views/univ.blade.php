@@ -13,7 +13,7 @@
         <label>choisissez votre univeriste</label>
         <select name="domain">
             <?php foreach ($univs as $univ ){ ?>
-            <option  value="<?php echo $univ['domain']; ?>"> <?php echo $univ['nom'] ;?> </option>
+            <option  value="<?php echo $univ['ID_univ']; ?>"> <?php echo $univ['nom'] ;?> </option>
             <?php } ?>
         </select>
          <button type='submit'> choisir </button>           

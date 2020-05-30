@@ -75,8 +75,13 @@
 </div>
 <center>
 <div id="late-signup">
-	<a href="universite?is_student=0"><button class="btn btn-primary">Get Started as Instructor </button></a>
-	<a href="universite?is_student=1"><button class="btn btn-success">Get Satarted as Student </button></a>
+<form action="universite" method='get'>
+
+	<button type='submit' name="type" value="etd" class="btn btn-primary">Get Started as Student </button>
+
+	<button type='submit' name="type" value="prf" class="btn btn-primary">Get Started as Instructor </button>
+
+</form>
 	
 </div>
 </center>
