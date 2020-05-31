@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Mail\ConfirmMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Etudiant;
 class EtudiantController extends Controller
 {
+
     public function test_email(Request $request)
     {
         
@@ -62,8 +65,13 @@ class EtudiantController extends Controller
         {
             $request->session()->put('email', $email);
            // $code=send_code($email);
-            $code = $request->session()->put('code', 123);
-            return view('final_register');
+             $verification_code = Hash::make(Str::random(8));
+          
+         $request->session()->put('code', $verification_code);
+        
+          Mail::to('elkanafaoui@gmail.com')->send( new ConfirmMail($verification_code) );
+           $isStudent=true;
+            return view('final_register',['isStudent'=>$isStudent]);
         }
 
     }
@@ -100,9 +108,12 @@ class EtudiantController extends Controller
             {
                 $is_confirmed=true;
             }
+             echo "viiii".$is_confirmed.$is_confirmed_code
+            .$username_exist;
         //save in table Etudiant
-        if($is_confirmed==true && $is_confirmed_code==true && $username_exist=false)
+        if($is_confirmed==true && $is_confirmed_code==true && $username_exist==false)
             {
+                echo "yeees all is right ";
                 $etd=new Etudiant();
                 $etd->ID_univ=$request->session()->get('ID_univ'); 
                 $etd->username=$username;

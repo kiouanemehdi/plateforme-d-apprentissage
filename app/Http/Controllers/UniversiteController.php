@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Universite;
+
+
 use Session;
 class UniversiteController extends Controller
 {
+     
     public function get_univ(Request $request)
     {
+        echo $request;
         //Session::flush();
        // if (!$request->session()->exists('is_etudiant'))
         //{
@@ -57,7 +61,8 @@ class UniversiteController extends Controller
         $univ_id=Universite::find($id);
         $domain=$univ_id['domain'];
         $request->session()->put('domain', $domain); 
-        return view('email');
+         $isStudent=$request->session()->get('is_etudiant');
+        return view('email',["isStudent"=>$isStudent]);
         // $domain=Universite::select('domain')->where('ID_univ', $id)->get();
       //  $comments = Comment::where('user_id', $id)->orderBy('id', 'desc')->get();
 

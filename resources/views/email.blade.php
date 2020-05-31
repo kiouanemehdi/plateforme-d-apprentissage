@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 
+@extends('Layouts.master');
+
+@if($isStudent)
+@section('email')
 <form action="email_verification" method="POST">
 @csrf
         <label>entrer email</label>
@@ -15,6 +11,18 @@
         <input type="text" name="email_confirm"></input>
          <button type='submit'> choisir </button>           
     </form>
-    
-</body>
-</html>
+@endsection
+@else
+@section('email')
+<form action="profemail_verification" method="POST">
+@csrf
+        <label>entrer professor  email</label>
+        <input type="text" name="email"></input><br>
+        <label>confirmer l'email</label>
+        <input type="text" name="email_confirm"></input>
+
+         <button type='submit'> choisir </button>           
+    </form>
+@endsection
+
+@endif
