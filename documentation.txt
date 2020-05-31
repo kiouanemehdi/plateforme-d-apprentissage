@@ -1,0 +1,21 @@
+tebe3 hadechi ila bghiti mateghre9ch :
+//hel git f projet folder o dir naskh wa las9 lhad les command
+
+1-composer install
+2-cp .env.example .env
+3-php artisan key:generate
+
+//sir l dak .env  ou bdel config d mail bhal haka 
+
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.googlemail.com
+MAIL_PORT=465
+MAIL_USERNAME=elkanafaoui@gmail.com (dir ta3k
+MAIL_PASSWORD=  (dirpass dialk)
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=elkanafaoui@gmail.com 
+MAIL_FROM_NAME="${APP_NAME}" 
+
+ou bdel hta smiya d base donne fih nit 
+
+3iich lehda m3a les email db 
