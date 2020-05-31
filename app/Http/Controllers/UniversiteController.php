@@ -12,7 +12,7 @@ class UniversiteController extends Controller
      
     public function get_univ(Request $request)
     {
-        echo $request;
+        
         //Session::flush();
        // if (!$request->session()->exists('is_etudiant'))
         //{

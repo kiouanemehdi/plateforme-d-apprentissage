@@ -18,9 +18,12 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('login');
+});
 //test send email it"s not used in production 
 Route::get('/sendmail', function () {
-   Mail::to('elkanafaoui@gmail.com')->send( new ConfirmMail() );
+   Mail::to('rafapi9855@lerwfv.com')->send( new ConfirmMail() );
 
 });
 //request from the welcome page form in the views folder 
@@ -36,4 +39,7 @@ Route::post('last_step_etd', 'EtudiantController@register');
 
 Route::post('last_step_prf', 'ProfController@register');
 
+Route::post('check_login', 'EtudiantController@check_login');
+
 Route::get('test_session', 'EtudiantController@test_session');
+

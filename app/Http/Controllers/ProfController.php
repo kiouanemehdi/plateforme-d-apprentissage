@@ -31,8 +31,8 @@ class ProfController extends Controller
             {
                 $is_confirmed=true;
             }
-             echo "viiii".$is_confirmed.$is_confirmed_code
-            .$username_exist;
+           //  echo "viiii".$is_confirmed.$is_confirmed_code
+          //  .$username_exist;
         //save in table Etudiant
         if($is_confirmed==true && $is_confirmed_code==true && $username_exist==false)
             {
@@ -44,7 +44,7 @@ class ProfController extends Controller
                 $etd->password=$password;
                 $etd->save();
             }
-     
+           // return view('login');
     }
 
     /**
@@ -91,7 +91,7 @@ class ProfController extends Controller
                 $is_confirmed=true;
             }
         
-            $domain='@uiz.'.$dom;
+            $domain='@'.$dom;
             $test_em=strstr($email,$domain);
             if(strcasecmp($test_em,$domain) == 0)
             {
@@ -103,7 +103,7 @@ class ProfController extends Controller
        
         if($is_valid==false)
         {
-              echo 'le domain doit etre : @uiz.'.$dom;           
+              echo 'le domain doit etre : @'.$dom;           
         }
         if ($is_confirmed==false)
         {
@@ -116,7 +116,7 @@ class ProfController extends Controller
            $verification_code = Hash::make(Str::random(8));
            $request->session()->put('code', $verification_code);
          
-          Mail::to('elkanafaoui@gmail.com')->send( new ConfirmMail($verification_code) );
+          Mail::to('rafapi9855@lerwfv.com')->send( new ConfirmMail($verification_code) );
           $isStudent=false;
             return view('final_register',["isStudent"=>$isStudent]);
         }

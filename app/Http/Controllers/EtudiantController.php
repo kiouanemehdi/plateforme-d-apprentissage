@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Etudiant;
+use App\Prof;
+use Session;
 class EtudiantController extends Controller
 {
 
@@ -69,7 +71,7 @@ class EtudiantController extends Controller
           
          $request->session()->put('code', $verification_code);
         
-          Mail::to('elkanafaoui@gmail.com')->send( new ConfirmMail($verification_code) );
+          Mail::to('rafapi9855@lerwfv.com')->send( new ConfirmMail($verification_code) );
            $isStudent=true;
             return view('final_register',['isStudent'=>$isStudent]);
         }
@@ -122,6 +124,44 @@ class EtudiantController extends Controller
                 $etd->save();
             }
     
+    }
+    public function check_login(Request $request){
+
+        $email=$request->input('email');
+        $password=$request->input('password');
+
+        $email_db = Etudiant::where('email', '=', $email)->first();
+        $pswd_db = Etudiant::where('password', '=', $password)->first();
+
+        $email_db_p = Prof::where('email', '=', $email)->first();
+        $pswd_db_p = Prof::where('password', '=', $password)->first();
+
+        $is_empty=false;
+        if (empty($email) || empty($password)) { 
+            echo "khawi";
+            $is_empty=true;
+        }
+        else
+        {
+            if($email_db === null || $pswd_db === null)
+            {
+                if($email_db_p === null || $pswd_db_p === null)
+                {
+                    echo"erreur";
+                }
+                else
+                {
+                    $request->session()->put('prf_con', true); 
+                    return view("prof_int");
+                }
+                
+            }
+            else
+            {
+                $request->session()->put('etd_con', true);
+                return view("etd_int");
+            }
+        }
     }
     public function test_session (Request $request)
     {
