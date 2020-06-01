@@ -1,0 +1,35 @@
+html, body, .grid-container { height: 100%; margin: 0; }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1.1fr 1.5fr 0.4fr 1fr;
+  grid-template-rows: 0.4fr 0.4fr 2.9fr 0.3fr;
+  gap: 1px 1px;
+  grid-template-areas: "header header header header" "new_post reponse reponse reponse" "post reponse reponse reponse" "post avg_qst_rep_time people_online people_online";
+}
+
+.header { grid-area: header; }
+
+.new_post { grid-area: new_post; }
+
+.post { grid-area: post; }
+
+.reponse { grid-area: reponse; }
+
+.avg_qst_rep_time { grid-area: avg_qst_rep_time; }
+
+.people_online { grid-area: people_online; }
+
+/* For presentation only, no need to copy the code below */
+.grid-container * { 
+ border: 1px solid red;
+ position: relative;
+}
+
+.grid-container *:after { 
+ content:attr(class);
+ position: absolute;
+ top: 0;
+ left: 0;
+}
+
