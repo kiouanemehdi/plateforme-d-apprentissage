@@ -147,7 +147,8 @@ class EtudiantController extends Controller
             {
                 if($email_db_p === null || $pswd_db_p === null)
                 {
-                    echo"erreur";
+                   return view("welcome");
+                   
                 }
                 else
                 {

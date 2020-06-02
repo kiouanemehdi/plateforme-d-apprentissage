@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/acceuil_style.css') }}">
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>Document</title>
 </head>
@@ -41,23 +41,25 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="post" action="check_login">
+      <form method="post" action="check_login" id="login-form-d">
         <div class="modal-body">
             @csrf
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                <input class="form-control" type="text" name="email"></input><br>
+                <input class="form-control" type="text" name="email" id="login-form-email"></input><br>
                 </div>
            </div>
            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-10">
-                <input class="form-control" type="password" name="password"></input>
+                <input class="form-control" type="password" name="password" id="login-form-pass"></input>
                 </div>
              </div>
         </div>
+       
         <div class="modal-footer">
+           <p id="error-form" style="color: red"></p>
             <a href="#">  Mot de pass oublie ?</a>
             <button type="submit" class="btn btn-primary">Log in</button>
         </div>
@@ -135,6 +137,29 @@
              click=false;
 		}
 	});
+  
+  $("#login-form-d").submit(function(event){
+    if($("#login-form-email").val()=="" ||$("#login-form-email").val()==" " ){
+           event.preventDefault();
+           $("#error-form").text("");
+           $("#error-form").append("<strong>Email Error</strong>");
+    }else if($("#login-form-pass").val()=="" ||$("#login-form-pass").val()==" " ){
+           event.preventDefault();
+           $("#error-form").text("");
+           $("#error-form").append("<strong>pass Error</strong>");
+    }
+    
+    
+  else{
+
+  }
+
+    
+  });
+  function isEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
 
 </script>
 </body>
