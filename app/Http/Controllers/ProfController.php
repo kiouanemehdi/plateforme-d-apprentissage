@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Prof;
+use Session;
 class ProfController extends Controller
 {
 
@@ -45,6 +46,14 @@ class ProfController extends Controller
                 $etd->save();
             }
            // return view('login');
+    }
+
+    public function logout()
+    {
+
+        Session::forget('id_prf');
+        Session::flush();
+        return view('welcome');
     }
 
     /**

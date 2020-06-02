@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="grid-container">
-    <div class="header"></div>
-    <div class="reponse"></div>
-    <div class="write_rep"></div>
-    <div class="post"></div>
+        <div class="header"></div>
+        <div class="reponse"></div>
+        <div class="write_rep"></div>
+        <div class="post"></div>
     </div>
 </body>
 </html>

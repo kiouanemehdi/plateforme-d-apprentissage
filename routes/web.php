@@ -41,5 +41,12 @@ Route::post('last_step_prf', 'ProfController@register');
 
 Route::post('check_login', 'EtudiantController@check_login');
 
+Route::get('logout', 'ProfController@logout');
+
+
+Route::get('post/get_post', 'PostController@get_post')->name('post.get_post');
+Route::post('post/post_post', 'PostController@post_post')->name('post.post_post');
+
+
 Route::get('test_session', 'EtudiantController@test_session');
 

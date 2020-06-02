@@ -138,8 +138,9 @@ class EtudiantController extends Controller
 
         $is_empty=false;
         if (empty($email) || empty($password)) { 
-            echo "khawi";
+            $request->session()->put('error', 'remplir tous les champs');
             $is_empty=true;
+            return view("welcome");
         }
         else
         {
@@ -147,23 +148,37 @@ class EtudiantController extends Controller
             {
                 if($email_db_p === null || $pswd_db_p === null)
                 {
-                   return view("welcome");
-                   
+                   // return back()->with('error', 'informations incorrectes');
+                    $request->session()->put('error', 'informations incorrectes');
+                    return view("welcome");
                 }
                 else
                 {
-                    $request->session()->put('prf_con', true); 
+                    $id_prof = Prof::where('email', $email)->where('password', $password)->first()->ID_prof;
+                    $request->session()->put('id_prf', $id_prof); 
+
+                    $pr_id=Prof::find($id_prof);
+                    $prf_username=$pr_id['username'];
+                     $request->session()->put('prf_username', $prf_username); 
+
                     return view("prof_int");
                 }
                 
             }
             else
             {
-                $request->session()->put('etd_con', true);
+                $id_etd = Etudiant::where('email', $email)->where('password', $password)->first()->ID_etd;
+                $request->session()->put('id_etd', $id_etd); 
+
+                $et_id=Etudiant::find($id_etd);
+                $etd_username=$et_id['username'];
+                 $request->session()->put('etd_username', $etd_username); 
+
                 return view("etd_int");
             }
         }
     }
+
     public function test_session (Request $request)
     {
         $value = $request->session()->get('ID_univ');

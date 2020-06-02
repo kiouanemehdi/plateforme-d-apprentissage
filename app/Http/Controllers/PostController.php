@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+namespace Carbon\Carbon;
+use Validator;
 use Illuminate\Http\Request;
-
+use App\Post;
+use Datatables;
 class PostController extends Controller
 {
     /**
@@ -13,7 +15,51 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('prof_int');
+    }
+    public function get_post()
+    {
+        $students  = Post::select('objet','detail','type','date')->where('ID_prof',Session::get('id_prf'));
+     return Datatables::of($students )->make(true);
+    }
+    public function post_post(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'type' => 'required',
+            'objet'  => 'required',
+            'detail'  => 'required',
+        ]);
+
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails())
+        {
+            foreach($validation->messages()->getMessages() as $field_name => $messages)
+            {
+                $error_array[] = $messages;
+            }
+        }
+        else
+        {
+            if($request->get('button_action') == "insert")
+            {
+                $student = new Post([
+                    'ID_prof'     =>   $request->session()->get('id_prf'),
+                    
+                    'objet'     =>  $request->get('objet'),
+                    'detail'     =>  $request->get('detail'),
+                    'type'    =>  $request->get('type'),
+                    'date'    => Carbon\Carbon::now()
+                ]);
+                $student->save();
+                $success_output = '<div class="alert alert-success">Data Inserted</div>';
+            }
+        }
+        $output = array(
+            'error'     =>  $error_array,
+            'success'   =>  $success_output
+        );
+        echo json_encode($output);
     }
 
     /**
