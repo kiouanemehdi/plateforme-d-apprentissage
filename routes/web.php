@@ -3,7 +3,7 @@
 use App\Mail\ConfirmMail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,8 +44,8 @@ Route::post('check_login', 'EtudiantController@check_login');
 Route::get('logout', 'ProfController@logout');
 
 
-Route::get('post/get_post', 'PostController@get_post')->name('post.get_post');
-Route::post('post/post_post', 'PostController@post_post')->name('post.post_post');
+Route::get('postg', 'PostController@get_post')->name('postg');
+Route::post('posts','PostController@postpost')->name('posts');
 
 
 Route::get('test_session', 'EtudiantController@test_session');

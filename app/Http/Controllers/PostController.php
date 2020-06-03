@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-namespace Carbon\Carbon;
+
 use Validator;
 use Illuminate\Http\Request;
 use App\Post;
@@ -15,14 +15,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('prof_int');
+       // return view('prof_int');
     }
     public function get_post()
     {
-        $students  = Post::select('objet','detail','type','date')->where('ID_prof',Session::get('id_prf'));
+        $students  = Post::select('objet','detail','type','date')->where('ID_prof','1');
      return Datatables::of($students )->make(true);
     }
-    public function post_post(Request $request)
+    public function postpost(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'type' => 'required',
@@ -49,7 +49,7 @@ class PostController extends Controller
                     'objet'     =>  $request->get('objet'),
                     'detail'     =>  $request->get('detail'),
                     'type'    =>  $request->get('type'),
-                    'date'    => Carbon\Carbon::now()
+                    'date'    => '2020-06-03 17:15:10'
                 ]);
                 $student->save();
                 $success_output = '<div class="alert alert-success">Data Inserted</div>';
