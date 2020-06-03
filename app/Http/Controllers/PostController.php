@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Post;
-use Datatables;
+use Carbon\Carbon;
+use DataTables;
 class PostController extends Controller
 {
     /**
@@ -15,12 +16,16 @@ class PostController extends Controller
      */
     public function index()
     {
-       // return view('prof_int');
+       /* if(request()->ajax())
+        {
+            return datatables()->of(Post::latest()->get())->make(true);
+        }
+        return view('prof_int');*/
     }
-    public function get_post()
+    public function get_post(Request $request)
     {
-        $students  = Post::select('objet','detail','type','date')->where('ID_prof','1');
-     return Datatables::of($students )->make(true);
+        $students  = Post::select('objet','detail','type')->where('ID_prof','=',$request->session()->get('id_prf'))->orderBy('date', 'DESC');
+        return DataTables::of($students )->make(true);
     }
     public function postpost(Request $request)
     {
@@ -49,10 +54,10 @@ class PostController extends Controller
                     'objet'     =>  $request->get('objet'),
                     'detail'     =>  $request->get('detail'),
                     'type'    =>  $request->get('type'),
-                    'date'    => '2020-06-03 17:15:10'
+                    'date'    => Carbon::now() /*'2020-06-03 17:15:10'*/
                 ]);
                 $student->save();
-                $success_output = '<div class="alert alert-success">Data Inserted</div>';
+                $success_output = '<div class="alert alert-success">Post creer</div>';
             }
         }
         $output = array(

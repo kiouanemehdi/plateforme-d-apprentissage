@@ -102,13 +102,13 @@
 })
 $(document).ready(function() {
      $('#student_table').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": "{{ route('postg') }}",
-        "columns":[
-            { "data": "objet" },
-            { "data": "detail" },
-            { "data": "type" }         
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('postg') }}",
+        columns:[
+            { data: "objet",name:"objet" },
+            { data: "detail",name:"detail" },
+            { data: "type",name:"objet" }         
         ]
      });
 
