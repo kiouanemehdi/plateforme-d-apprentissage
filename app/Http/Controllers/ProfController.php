@@ -50,16 +50,16 @@ class ProfController extends Controller
            // return view('login');
     }
 
-    public function logout()
+    public function logout( )
     {
 
 
-        /*Session::forget('id_prf');
-                
+     //  Session::forget('id_prf');
+          //  Session::pull('id_prf');     
+          //Session::flash('id_prf', 'logout');
+        //Session::flush();
 
-        Session::flush();
-
-        return view('welcome');*/
+        return view('welcome');
               
 Session::regenerate(true);
          Session::flush(); return redirect('/');

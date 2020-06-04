@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
 //test send email it"s not used in production 
 Route::get('/sendmail', function () {
    Mail::to('rafapi9855@lerwfv.com')->send( new ConfirmMail() );
@@ -46,6 +47,9 @@ Route::get('logout', 'ProfController@logout');
 
 Route::get('postg', 'PostController@get_post')->name('postg');
 Route::post('posts','PostController@postpost')->name('posts');
+
+Route::post('get_id_rep','ReponseController@get_id_rep')->name('get_id_rep');
+Route::get('reponse_get','ReponseController@get_reponse')->name('reponse_get');
 
 
 Route::get('test_session', 'EtudiantController@test_session');

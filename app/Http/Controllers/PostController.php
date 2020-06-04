@@ -24,8 +24,12 @@ class PostController extends Controller
     }
     public function get_post(Request $request)
     {
-        $students  = Post::select('objet','detail','type')->where('ID_prof','=',$request->session()->get('id_prf'))->orderBy('date', 'DESC');
-        return DataTables::of($students )->make(true);
+        $students  = Post::select('ID_post','objet','detail','type')->where('ID_prof','=',$request->session()->get('id_prf'))->orderBy('date', 'DESC');
+        return DataTables::of($students )
+        ->addColumn('id', function($students){
+            return $students->ID_post;
+        })
+        ->make(true);
     }
     public function postpost(Request $request)
     {

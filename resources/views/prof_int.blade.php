@@ -31,14 +31,25 @@
             <table id="student_table" class="table table-bordered" style="width:100%">
                 <thead>
                     <tr>
+                        
                         <th>objet</th>
                         <th>detail</th>
                         <th>type</th>
+                        <th style="display:none;">id</th>
                     </tr>
                 </thead>
          </table>
         </div>
-        <div class="reponse"></div>
+        <div class="reponse">
+            <table id="reponse_table" class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>   
+                            <th>id etd</th>
+                            <th>contenu</th>
+                        </tr>
+                    </thead>
+            </table>
+        </div>
         <div class="avg_qst_rep_time"></div>
         <div class="people_online"></div>
     </div>
@@ -110,9 +121,48 @@ $(document).ready(function() {
         columns:[
             { data: "objet",name:"objet" },
             { data: "detail",name:"detail" },
-            { data: "type",name:"objet" }         
+            { data: "type",name:"objet" },
+            { data: "id",name:"id",visible: false }         
         ]
      });
+    var table = $('#student_table').DataTable();
+    $('#student_table tbody').on( 'click', 'tr', function () {
+            var row= table.row( this ).data();
+            var id=row['id'];
+            //var seft_id="'"+id+"'";
+            //console.log(id );
+             $.ajax({
+                url: "{{ url('get_id_rep') }}",
+                type: "post",
+                data:{'ID_pst':id}
+                
+                });
+                
+                $('#reponse_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('reponse_get') }}",
+                    columns:[
+                        { data: "ID_etd",name:"ID_etd" },
+                        { data: "contenu",name:"contenu" }        
+            ],
+            bDestroy: true
+        });
+        });
+
+     /*$(document).ready(function() {
+        $('#reponse_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('reponse_get') }}",
+            columns:[
+                { data: "ID_etd",name:"ID_etd" },
+                { data: "contenu",name:"contenu" }        
+            ]
+        });
+    });*/
+     
+
 
      $('#add_data').click(function(){
         $('#studentModal').modal('show');
@@ -160,4 +210,5 @@ window.history.forward();
 </script>
 </body>
 </html>
+
 @endif
