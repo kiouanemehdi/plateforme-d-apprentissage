@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Prof;
 use Session;
+use Auth;
+
 class ProfController extends Controller
 {
 
@@ -51,9 +53,16 @@ class ProfController extends Controller
     public function logout()
     {
 
-        Session::forget('id_prf');
+
+        /*Session::forget('id_prf');
+                
+
         Session::flush();
-        return view('welcome');
+
+        return view('welcome');*/
+              
+Session::regenerate(true);
+         Session::flush(); return redirect('/');
     }
 
     /**

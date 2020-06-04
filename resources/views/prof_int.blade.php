@@ -1,4 +1,6 @@
-@if(Session::has('id_prf'))
+
+@if(!session('status'))
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +21,7 @@
 <body>
     <div class="grid-container">
         <div class="header">
-        <h2 style="float:left;" id='name'> bienvenue ** {{ Session::get('prf_username')}} ** id : {{ Session::get('id_prf')}}</h2>
+        <h2 style="float:left;" id='name'> bienvenue ** {{ Session::get('prf_username')}} ** id : {{ Session::get('id_prf')}} </h2>
         <a style="float:right;" class="btn btn-primary" href="logout">Log out</a>
         </div>
         <div class="">
@@ -154,6 +156,7 @@ $(document).ready(function() {
     });
 
 });
+window.history.forward();
 </script>
 </body>
 </html>

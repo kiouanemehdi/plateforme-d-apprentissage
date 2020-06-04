@@ -160,7 +160,6 @@ class EtudiantController extends Controller
                     $pr_id=Prof::find($id_prof);
                     $prf_username=$pr_id['username'];
                      $request->session()->put('prf_username', $prf_username); 
-
                     return view("prof_int");
                 }
                 
