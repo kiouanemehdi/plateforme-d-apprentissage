@@ -70,7 +70,47 @@ class PostController extends Controller
         );
         echo json_encode($output);
     }
+    //STUDENT STUFF
+    public function studentPost(Request $request){
 
+        $validation = Validator::make($request->all(), [
+            'type' => 'required',
+            'objet'  => 'required',
+            'detail'  => 'required',
+        ]);
+
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails())
+        {
+            foreach($validation->messages()->getMessages() as $field_name => $messages)
+            {
+                $error_array[] = $messages;
+            }
+        }
+        else
+        {
+            if($request->get('button_action') == "insert")
+            {
+                $student = new Post([
+                    'ID_prof'     =>  '1',/* $request->session()->get('id_prf'),*/
+                    
+                    'objet'     =>  $request->get('objet'),
+                    'detail'     =>  $request->get('detail'),
+                    'type'    =>  $request->get('type'),
+                    'date'    => Carbon::now() /*'2020-06-03 17:15:10'*/
+                ]);
+                $student->save();
+                $success_output = '<div class="alert alert-success">Post creer</div>';
+            }
+        }
+        $output = array(
+            'error'     =>  $error_array,
+            'success'   =>  $success_output
+        );
+        echo json_encode($output);
+
+    }
     /**
      * Show the form for creating a new resource.
      *
