@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!--<link rel="stylesheet" href="{{ URL::asset('css/style_etd.css') }}">-->
+    <link rel="stylesheet" href="{{ URL::asset('css/style_etd.css') }}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" defer ></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" defer ></script>       
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+
 
     <title>Document</title>
 </head>
@@ -17,14 +21,27 @@
     <div class="grid-container">
         <div class="header">
            <a  class="btn btn-primary" style="float: right;">Logout</a>
+           <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
         </div>
         <div class="reponse"></div>
-        <div class="write_rep"></div>
+        <div class="write_rep">
+            <form method="POST" id="student_rep">
+            <span id="form_output2"></span>
+                <div class="form-group row">
+                    
+                    <div class="col-sm-10">
+                    <textarea class="form-control" type="text" name="contenu" id="contenu"></textarea>
+                    </div>
+            </div>
+
+            <input type="hidden" name="button_action2" id="button_action2" value="insert" />
+         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" />
+            </form>
+
+        </div>
         <div class="post"></div>
     </div>
-<div>
-    <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
-</div>
+
     <!-- Modal -->
 <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -96,7 +113,51 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
- <script >
+ <script type="text/javascript">
+         $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+})
+
+    $('#student_rep').on('submit', function(event){
+       
+    
+    $('#form_output2').html('');
+    $('#button_action2').val('insert');
+    $('#action2').val('Add');
+        event.preventDefault();
+        var form_data = $(this).serialize();
+        alert(form_data);
+        $.ajax({
+             type:'post',
+            url:"{{ url('postrep') }}",
+            data:form_data,
+            dataType:"json",
+            success:function(data)
+            {
+                if(data.error.length > 0)
+                {
+                    var error_html = '';
+                    for(var count = 0; count < data.error.length; count++)
+                    {
+                        error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+                    }
+                    $('#form_output2').html(error_html);
+                }
+                else
+                {
+                    $('#form_output2').html(data.success);
+                    $('#student_rep')[0].reset();
+                    $('#action2').val('Add');
+                    //$('.modal-title').text('Add Data');
+                    $('#button_action2').val('insert');
+                   // $('#student_table').DataTable().ajax.reload();
+                }
+            }
+        });
+        
+    });
    /* $('#student_table').DataTable({
         processing: true,
         serverSide: true,

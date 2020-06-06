@@ -42,7 +42,7 @@ class StudentPostsController extends Controller
             if($request->get('button_action') == "insert")
             {
                 $student_post = new StudentPosts([
-                    'ID_etd'     =>  '1',/* $request->session()->get('id_prf'),*/
+                    'ID_etd'     =>   $request->session()->get('id_etd'),
                      'type'    =>  $request->get('type'),
                     'topic'     =>  $request->get('topic'),
                     'objet'     =>  $request->get('objet'),

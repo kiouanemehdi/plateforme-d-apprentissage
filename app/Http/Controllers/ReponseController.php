@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Validator;
 use Illuminate\Http\Request;
 use App\Reponse;
+use Carbon\Carbon;
 use DataTables;
 class ReponseController extends Controller
 {
@@ -26,6 +27,43 @@ class ReponseController extends Controller
     {
         $students  = Reponse::select('ID_etd','contenu')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
         return DataTables::of($students )->make(true);
+    }
+
+    public function post_rep(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'contenu' => 'required',
+
+        ]);
+
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails())
+        {
+            foreach($validation->messages()->getMessages() as $field_name => $messages)
+            {
+                $error_array[] = $messages;
+            }
+        }
+        else
+        {
+            if($request->get('button_action2') == "insert")
+            {
+                $student = new Reponse([
+                    'ID_post'     => '2' /* $request->session()->get('id_prf')*/,
+                    'ID_etd'     =>   $request->session()->get('id_etd'),
+                    'contenu'     =>  $request->get('contenu'),
+                    'date'    => Carbon::now() /*'2020-06-03 17:15:10'*/
+                ]);
+                $student->save();
+                $success_output = '<div class="alert alert-success">rep creer</div>';
+            }
+        }
+        $output = array(
+            'error'     =>  $error_array,
+            'success'   =>  $success_output
+        );
+        echo json_encode($output);
     }
 
     /**
