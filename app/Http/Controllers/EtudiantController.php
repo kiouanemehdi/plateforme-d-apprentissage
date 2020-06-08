@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Mail\ConfirmMail;
+use App\Classe;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -155,12 +156,18 @@ class EtudiantController extends Controller
                 else
                 {
                     $id_prof = Prof::where('email', $email)->where('password', $password)->first()->ID_prof;
-                    $request->session()->put('id_prf', $id_prof); 
+                    $id_univ= Prof::where('email', $email)->where('password', $password)->first()->ID_univ;
+                    $c_code= Classe::where('ID_prof', $id_prof)->get('code');
+                   // $c_code=substr($c_code,1);
+                    //s$c_code= Classe::table('users')->get()
 
+                    $request->session()->put('id_prf', $id_prof); 
+                     $request->session()->put('id_univ', $id_univ);
+                       
                     $pr_id=Prof::find($id_prof);
                     $prf_username=$pr_id['username'];
                      $request->session()->put('prf_username', $prf_username); 
-                    return view("prof_int");
+                    return view("prof_int", ['namess' => $c_code]);
                 }
                 
             }

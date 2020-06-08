@@ -48,9 +48,10 @@ Route::get('logout', 'ProfController@logout');
 Route::get('postg', 'PostController@get_post')->name('postg');
 Route::post('posts','PostController@postpost')->name('posts');
 //Student posts routes
-Route::post('spost','StudentPostsController@studentPost')->name('spost');
-
+Route::post('sposts','StudentPostsController@studentPost')->name('sposts');
+Route::post('addclasss','ClasseController@addNewClass')->name('addclasss');
 Route::post('postrep','ReponseController@post_rep')->name('postrep');
+Route::post('getclasses','ClasseController@get_classes')->name('getclasses');
 
 Route::post('get_id_rep','ReponseController@get_id_rep')->name('get_id_rep');
 Route::get('reponse_get','ReponseController@get_reponse')->name('reponse_get');

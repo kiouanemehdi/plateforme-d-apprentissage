@@ -21,7 +21,21 @@
 <body>
     <div class="grid-container">
         <div class="header">
-        <h2 style="float:left;" id='name'> bienvenue ** {{ Session::get('prf_username')}} ** id : {{ Session::get('id_prf')}} </h2>
+        <h2 style="float:left;" id='name'> bienvenue ** {{ Session::get('prf_username')}} ** id : {{ Session::get('id_prf')}} ** </h2>
+        <div class="">
+        <button name="add-class" id="add-class" type="button" class="btn btn-primary" data-toggle="modal" >ADD NEW Class</button>
+        </div>
+        <div>
+        <p>My Class</p>
+       <select >
+
+       @foreach ($namess as $key => $val)
+       <option class="form-control">{{$val}}</option>
+    
+@endforeach
+
+       </select>
+        </div>
         <a style="float:right;" class="btn btn-primary" href="logout">Log out</a>
         </div>
         <div class="">
@@ -40,6 +54,7 @@
                 </thead>
          </table>
         </div>
+
         <div class="reponse">
             <table id="reponse_table" class="table table-bordered" style="width:100%">
                     <thead>
@@ -104,6 +119,58 @@
     </div>
   </div>
 </div>
+   <!-- Modal -->
+<div class="modal fade" id="add-class-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form method="POST" id="class-form">
+            @csrf
+      <div class="modal-header">
+        <h5 class="modal-title" >Nouveau Class</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+        <div class="modal-body">
+    
+                <span id="form_output"></span>
+            <div class="form-group row">
+                <label class="col-sm-2.5 col-form-label">Class name</label>
+                <div class="col-sm-10">
+               <input class="form-control" type="text" name="class-name" id="class-name">
+                </div>
+           </div>
+            <div class="form-group row">
+                <label class="col-sm-2.5 col-form-label">Class Code </label>
+                <div class="col-sm-10">
+                <input class="form-control" type="text" name="class_code" id="class_code"></input><br>
+                </div>
+           </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Semester</label>
+                <div class="col-sm-10">
+                <select class="form-control" type="text" name="class_semestre" id="class_semsestre">
+                    <option value="1">s1</option>
+                    <option value="2">s2</option>
+                    <option value="3">s3</option>
+                    <option value="4">s4</option>
+                </select><br>
+                </div>
+           </div>
+           
+        </div>
+       
+        <div class="modal-footer">
+        <input type="hidden" name="class_button_action" id="class_button_action" value="insert" />
+         <input type="submit" name="submit" id="add-class-action" value="Add" class="btn btn-info" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
     
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -114,7 +181,7 @@
     }
 })
 $(document).ready(function() {
-     $('#student_table').DataTable({
+    $('#student_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: "{{ route('postg') }}",
@@ -125,6 +192,7 @@ $(document).ready(function() {
             { data: "id",name:"id",visible: false }         
         ]
      });
+    
     var table = $('#student_table').DataTable();
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
@@ -163,7 +231,7 @@ $(document).ready(function() {
     });*/
      
 
-
+//add post
      $('#add_data').click(function(){
         $('#studentModal').modal('show');
         $('#student_form')[0].reset();
@@ -171,6 +239,15 @@ $(document).ready(function() {
         $('#button_action').val('insert');
         $('#action').val('Add');
     });
+     //add class
+      $('#add-class').click(function(){
+        $('#add-class-form').modal('show');
+        $('#class-form')[0].reset();
+        $('#form_output').html('');
+        $('#class-button_action').val('insert');
+        $('#add-class-action').val('Add');
+    });
+
 
     $('#student_form').on('submit', function(event){
         event.preventDefault();
@@ -178,7 +255,7 @@ $(document).ready(function() {
         alert(form_data);
         $.ajax({
              type:'post',
-            url:"{{ url('sposts') }}",
+            url:"{{ url('posts') }}",
             data:form_data,
             dataType:"json",
             success:function(data)
@@ -200,6 +277,39 @@ $(document).ready(function() {
                     $('.modal-title').text('Add Data');
                     $('#button_action').val('insert');
                     $('#student_table').DataTable().ajax.reload();
+                }
+            }
+        });
+    });
+    //add new class logic
+     $('#class-form').on('submit', function(event){
+        event.preventDefault();
+        var form_data = $(this).serialize();
+        alert(form_data);
+        $.ajax({
+             type:'post',
+            url:"{{ url('addclasss') }}",
+            data:form_data,
+            dataType:"json",
+            success:function(data)
+            {
+                if(data.error.length > 0)
+                {
+                    var error_html = '';
+                    for(var count = 0; count < data.error.length; count++)
+                    {
+                        error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+                    }
+                    $('#form_output').html(error_html);
+                }
+                else
+                {
+                    $('#form_output').html(data.success);
+                    $('#class-form')[0].reset();
+                    $('#add-class-action').val('Add');
+                  //  $('.modal-title').text('Add Data');
+                    $('#class-button-action').val('insert');
+                   // $('#student_table').DataTable().ajax.reload();
                 }
             }
         });
