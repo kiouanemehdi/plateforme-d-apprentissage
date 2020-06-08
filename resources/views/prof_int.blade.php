@@ -27,10 +27,10 @@
         </div>
         <div>
         <p>My Class</p>
-       <select >
+       <select id="select_id" >
 
-       @foreach ($namess as $key => $val)
-       <option class="form-control">{{$val}}</option>
+       @foreach ($namess as $key )
+       <option value="{{$key['ID_class']}}" class="form-control">{{$key['code']}}</option>
     
 @endforeach
 
@@ -134,7 +134,7 @@
       
         <div class="modal-body">
     
-                <span id="form_output"></span>
+                <span id="form_output3"></span>
             <div class="form-group row">
                 <label class="col-sm-2.5 col-form-label">Class name</label>
                 <div class="col-sm-10">
@@ -180,7 +180,21 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 })
+
+//get id of the selected class
 $(document).ready(function() {
+    $("#select_id").change(function(){
+        //alert($('#select_id option:selected').val());
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('get_id_class') }}",
+            data:  {'id_class':$('#select_id option:selected').val()}
+        });
+  //  });
+
+
+
+//$("#select_id").change(function(){
     $('#student_table').DataTable({
         processing: true,
         serverSide: true,
@@ -190,22 +204,22 @@ $(document).ready(function() {
             { data: "detail",name:"detail" },
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
-        ]
+        ],
+        bDestroy: true
      });
-    
-    var table = $('#student_table').DataTable();
+     var table = $('#student_table').DataTable();
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
             var id=row['id'];
             //var seft_id="'"+id+"'";
-            //console.log(id );
+            console.log(id );
              $.ajax({
                 url: "{{ url('get_id_rep') }}",
                 type: "post",
                 data:{'ID_pst':id}
                 
                 });
-                
+
                 $('#reponse_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -217,7 +231,14 @@ $(document).ready(function() {
             bDestroy: true
         });
         });
+    });
 
+   // $('#reponse_table').DataTable().clear();
+   // $('#reponse_table').DataTable().destroy();
+   
+
+   
+ 
      /*$(document).ready(function() {
         $('#reponse_table').DataTable({
             processing: true,
@@ -243,8 +264,8 @@ $(document).ready(function() {
       $('#add-class').click(function(){
         $('#add-class-form').modal('show');
         $('#class-form')[0].reset();
-        $('#form_output').html('');
-        $('#class-button_action').val('insert');
+        $('#form_output3').html('');
+        $('#class_button_action').val('insert');
         $('#add-class-action').val('Add');
     });
 
@@ -300,15 +321,15 @@ $(document).ready(function() {
                     {
                         error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
                     }
-                    $('#form_output').html(error_html);
+                    $('#form_output3').html(error_html);
                 }
                 else
                 {
-                    $('#form_output').html(data.success);
+                    $('#form_output3').html(data.success);
                     $('#class-form')[0].reset();
                     $('#add-class-action').val('Add');
                   //  $('.modal-title').text('Add Data');
-                    $('#class-button-action').val('insert');
+                    $('#class_button_action').val('insert');
                    // $('#student_table').DataTable().ajax.reload();
                 }
             }

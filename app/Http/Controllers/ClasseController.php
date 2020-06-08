@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use Validator;
+use Illuminate\Http\Request;
 use App\Classe;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use DataTables;
 class ClasseController extends Controller
 {
@@ -18,7 +18,7 @@ class ClasseController extends Controller
         
     }
     public function get_classes(Request $request){
-        $students  = Classe::select('code')->where('ID_prof','=',$request->session()->get('id_prf'))->orderBy('date', 'DESC');
+        $students  = Classe::select('code')->where('ID_prof','=',$request->session()->get('id_prf'))->orderBy('date_creation', 'DESC');
         return DataTables::of($students );
 
     }
@@ -43,11 +43,11 @@ class ClasseController extends Controller
             if($request->get('class_button_action') == "insert")
             {
                 $student = new Classe([
-                    'ID_univ' =>$request->session()->get('id_prf'),
-                    'ID_prof'     =>   $request->session()->get('id_univ'),
-                    'ID_sem' =>   $request->get('class_semestre') ,
-                    'code'     =>  $request->get('class_code'),
-                    'date_creation'    => Carbon::now() /*'2020-06-03 17:15:10'*/
+                    'ID_univ' => $request->session()->get('id_univ'),
+                    'ID_prof' => $request->session()->get('id_prf'),
+                    'ID_sem'=> $request->get('class_semestre') ,
+                    'code' => $request->get('class_code'),
+                    'date_creation' => Carbon::now() /*'2020-06-03 17:15:10'*/
                 ]);
                 $student->save();
                 $success_output = '<div class="alert alert-success">class creer</div>';

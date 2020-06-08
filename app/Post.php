@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $primaryKey = 'ID_post';
-    protected $fillable = ['ID_prof','objet','detail','type','date' ];
+    protected $fillable = ['ID_prof','ID_class','objet','detail','type','date' ];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Classe;
 use Carbon\Carbon;
 use DataTables;
 class PostController extends Controller
@@ -22,9 +23,18 @@ class PostController extends Controller
         }
         return view('prof_int');*/
     }
+    public function get_id_class(Request $request)
+    {
+        $request->session()->put('id_class', $request->get( 'id_class' ));
+    }
     public function get_post(Request $request)
     {
-        $students  = Post::select('ID_post','objet','detail','type')->where('ID_prof','=',$request->session()->get('id_prf'))->orderBy('date', 'DESC');
+       
+        $students  = Post::select('ID_post','objet','detail','type')
+        ->where('ID_prof','=',$request->session()->get('id_prf'))
+        ->where('ID_class','=', $request->session()->get('id_class'))
+        ->orderBy('date', 'DESC');
+
         return DataTables::of($students )
         ->addColumn('id', function($students){
             return $students->ID_post;
@@ -54,7 +64,7 @@ class PostController extends Controller
             {
                 $student = new Post([
                     'ID_prof'     =>   $request->session()->get('id_prf'),
-                    
+                    'ID_class' =>  $request->session()->get('id_class'),
                     'objet'     =>  $request->get('objet'),
                     'detail'     =>  $request->get('detail'),
                     'type'    =>  $request->get('type'),
