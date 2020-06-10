@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Reponse;
 use Carbon\Carbon;
 use DataTables;
+use Session;
 class ReponseController extends Controller
 {
     /**
@@ -29,6 +30,7 @@ class ReponseController extends Controller
         return DataTables::of($students )->make(true);
     }
 
+
     public function post_rep(Request $request)
     {
         $validation = Validator::make($request->all(), [
@@ -50,7 +52,7 @@ class ReponseController extends Controller
             if($request->get('button_action2') == "insert")
             {
                 $student = new Reponse([
-                    'ID_post'     => '2' /* $request->session()->get('id_prf')*/,
+                    'ID_post'     => $request->session()->get('koupa'),
                     'ID_etd'     =>   $request->session()->get('id_etd'),
                     'contenu'     =>  $request->get('contenu'),
                     'date'    => Carbon::now() /*'2020-06-03 17:15:10'*/

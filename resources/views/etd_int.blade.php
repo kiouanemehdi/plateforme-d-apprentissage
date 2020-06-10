@@ -4,45 +4,35 @@
     <meta charset="UTF-8">
 <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="{{ URL::asset('css/etdstyle.css') }}">   
     
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ URL::asset('css/style_etd.css') }}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
-      <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"  ></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"  ></script>       
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" defer ></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" defer ></script>       
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
 
 
-    <title>Student</title>
+    <title>Document</title>
 </head>
 <body>
-
     <div class="grid-container">
-        <div class="item1">
         <div class="header">
-          
+           <a  class="btn btn-primary" style="float: right;">Logout</a>
            <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
-            <a  class="btn btn-primary" style="float: right;">Logout</a>
-        </div>    
         </div>
-          
-        <div class="item2">
-            <div class="item-nested-container">
-                <div class="student-posts">
-                  
-            <table id="student_table" class="table table-bordered data-table-holder" width="20px">
-                <thead >
-                    <tr>                        
-                        <th>objet</th>
-                        <th>detail</th>
-                        <th>type</th>
-                        <th style="display:none;">id</th>
-                    </tr>
-                </thead>
-         </table>
+        <div class="reponse">
+        <table id="reponse_table" class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>   
+                            <th>id etd</th>
+                            <th>contenu</th>
+                        </tr>
+                    </thead>
+            </table>
+
         </div>
         <div class="write_rep">
             <form method="POST" id="student_rep">
@@ -58,14 +48,34 @@
          <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" />
             </form>
 
-        </div>    
-                </div>
-         
-
         </div>
-       
+        <div class="post">
+            <h4>Student post</h4>
+        <table id="student_table_post" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        
+                        <th>objet</th>
+                        <th>detail</th>
+                        <th>type</th>
+                        <th style="display:none;">id</th>
+                    </tr>
+                </thead>
+         </table><br>
+         <h4>prof post</h4>
+        <table id="student_table" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        
+                        <th>objet</th>
+                        <th>detail</th>
+                        <th>type</th>
+                        <th style="display:none;">id</th>
+                    </tr>
+                </thead>
+         </table>
         </div>
-
+    </div>
 
     <!-- Modal -->
 <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,8 +146,7 @@
     </div>
   </div>
 </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  <script type="text/javascript">
          $.ajaxSetup({
@@ -145,7 +154,20 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 })
-      $('#student_table').DataTable({
+$(document).ready(function() {
+    $('#student_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('postg_etd') }}",
+        columns:[
+            { data: "objet",name:"objet" },
+            { data: "detail",name:"detail" },
+            { data: "type",name:"objet" },
+            { data: "id",name:"id",visible: false }         
+        ],
+        bDestroy: true
+     });
+     $('#student_table_post').DataTable({
         processing: true,
         serverSide: true,
         ajax: "{{ route('studentposts') }}",
@@ -154,10 +176,61 @@
             { data: "detail",name:"detail" },
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
-        ]
+        ],
+        bDestroy: true
      });
-    
-    /*$('#student_rep').on('submit', function(event){
+
+var table = $('#student_table').DataTable();
+    $('#student_table tbody').on( 'click', 'tr', function () {
+            var row= table.row( this ).data();
+            var id=row['id'];
+            //var seft_id="'"+id+"'";
+            console.log(id );
+             $.ajax({
+                url: "{{ url('get_id_rep') }}",
+                type: "post",
+                data:{'ID_pst':id}
+                
+                });
+
+                $('#reponse_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('reponse_get') }}",
+                    columns:[
+                        { data: "ID_etd",name:"ID_etd" },
+                        { data: "contenu",name:"contenu" }        
+            ],
+            bDestroy: true
+        });
+        });
+
+        var table1 = $('#student_table_post').DataTable();
+    $('#student_table_post tbody').on( 'click', 'tr', function () {
+            var row= table1.row( this ).data();
+            var id=row['id'];
+            //var seft_id="'"+id+"'";
+            console.log(id );
+             $.ajax({
+                url: "{{ url('get_id_rep') }}",
+                type: "post",
+                data:{'ID_pst':id}
+                
+                });
+
+                $('#reponse_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('reponse_get') }}",
+                    columns:[
+                        { data: "ID_etd",name:"ID_etd" },
+                        { data: "contenu",name:"contenu" }        
+            ],
+            bDestroy: true
+        });
+        });
+
+    $('#student_rep').on('submit', function(event){
        
     
     $('#form_output2').html('');
@@ -194,9 +267,20 @@
             }
         });
         
-    });*/
-   
-   /* var table = $('#student_table').DataTable();
+    });
+});
+   /* $('#student_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('postg') }}",
+        columns:[
+            { data: "objet",name:"objet" },
+            { data: "detail",name:"detail" },
+            { data: "type",name:"objet" },
+            { data: "id",name:"id",visible: false }         
+        ]
+     });
+    var table = $('#student_table').DataTable();
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
             var id=row['id'];
@@ -220,18 +304,14 @@
             bDestroy: true
         });
         });*/
-
 /*NEW POST FORM DATA SHOW*/
   $('#add_student_post').click(function(){
-
     $('#studentModal').modal('show');
         $('#student_form')[0].reset();
         $('#form_output').html('');
         $('#button_action').val('insert');
         $('#action').val('Add');
-
   }); 
-
   /*SUBMIT FORM DATA PROCESSING*/
  $('#student_form').on('submit',function(event){
         event.preventDefault();
@@ -250,10 +330,9 @@
                  var error_html = '';
                     for(var count = 0; count < data.error.length; count++)
                     {
-
-                      //  error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+                        error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
                     }
-                    //$('#form_output').html(error_html);
+                    $('#form_output').html(error_html);
                 }
                 else
                 {
@@ -267,9 +346,6 @@
             }
         });
     });
-
-
-
  </script>   
 </body>
 </html>

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Classe;
+use App\Inscrit;
+use DB;
 use Carbon\Carbon;
+use Session;
 use DataTables;
 class ClasseController extends Controller
 {
@@ -43,19 +46,11 @@ class ClasseController extends Controller
             if($request->get('class_button_action') == "insert")
             {
                 $student = new Classe([
-<<<<<<< HEAD
-                    'ID_univ' =>$request->session()->get('id_univ'),
-                    'ID_prof'     => $request->session()->get('id_prf'),
-                    'ID_sem' =>   $request->get('class_semestre') ,
-                    'code'     =>  $request->get('class_code'),
-                    'date_creation'    => Carbon::now() /*'2020-06-03 17:15:10'*/
-=======
                     'ID_univ' => $request->session()->get('id_univ'),
                     'ID_prof' => $request->session()->get('id_prf'),
                     'ID_sem'=> $request->get('class_semestre') ,
                     'code' => $request->get('class_code'),
                     'date_creation' => Carbon::now() /*'2020-06-03 17:15:10'*/
->>>>>>> 2e198368cda38808e2acc6ff1885b2dadc3d5ac2
                 ]);
                 $student->save();
                 $success_output = '<div class="alert alert-success">class creer</div>';
@@ -68,6 +63,37 @@ class ClasseController extends Controller
         echo json_encode($output);
     }
 
+    public function get_choix_class(Request $request){
+       
+        $inscrit_class = DB::table('inscrits')
+        ->join('classes', function ($join) {
+            $id_etd=Session::get('id_etd');
+            $join->on('inscrits.ID_class', '=', 'classes.ID_class')
+                 ->where('inscrits.ID_etd', '=',$id_etd);
+        })
+        ->select('classes.ID_class','classes.code')
+        ->get();
+
+       // $std_univ=Etudiant::select('ID_univ')->where('ID_etd','=','1')->first()->ID_univ;
+        $other_class = DB::table('classes')
+        ->join('etudiants', function ($join) {
+            $id_etd=Session::get('id_etd');
+            $join->on('etudiants.ID_univ', '=', 'classes.ID_univ')
+                 ->where('etudiants.ID_etd', '=', $id_etd)
+                 ->whereNotIn('classes.ID_class', Inscrit::select('ID_class')->where('ID_etd','=',$id_etd));
+        })
+        ->select('classes.ID_class','classes.code')
+        ->get();
+
+            return view('choix_class',['class_inscrit'=>$inscrit_class,'class_others'=>$other_class]);
+
+    }
+    public function redirect_int(Request $request)
+    {
+        $idc=$request->input('inscrit_class');
+        $request->session()->put('id_selected_class',$idc);
+        return view('etd_int');
+    }
     /**
      * Show the form for creating a new resource.
      *

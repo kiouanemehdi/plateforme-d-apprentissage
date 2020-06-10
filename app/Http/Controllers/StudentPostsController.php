@@ -22,7 +22,10 @@ class StudentPostsController extends Controller
     }
      public function get_post(Request $request)
     {
-        $students  = StudentPosts::select('ID_post','objet','detail','type')->where('ID_etd','=',$request->session()->get('id_etd'))->orderBy('date', 'DESC');
+        $students  = StudentPosts::select('ID_post','objet','detail','type')
+        ->where('ID_etd','=',$request->session()->get('id_etd'))
+        ->where('ID_class','=',$request->session()->get('id_selected_class'))
+        ->orderBy('date', 'DESC');
         return DataTables::of($students )
         ->addColumn('id', function($students){
             return $students->ID_post;
@@ -52,6 +55,7 @@ class StudentPostsController extends Controller
             {
                 $student_post = new StudentPosts([
                     'ID_etd'     =>   $request->session()->get('id_etd'),
+                    'ID_class'     => $request->session()->get('id_selected_class'),
                      'type'    =>  $request->get('type'),
                     'topic'     =>  $request->get('topic'),
                     'objet'     =>  $request->get('objet'),

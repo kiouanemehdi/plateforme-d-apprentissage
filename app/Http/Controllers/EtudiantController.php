@@ -181,7 +181,7 @@ class EtudiantController extends Controller
                 $etd_username=$et_id['username'];
                  $request->session()->put('etd_username', $etd_username); 
 
-                return view("etd_int");
+                 return redirect()->route('choix_class');
             }
         }
     }

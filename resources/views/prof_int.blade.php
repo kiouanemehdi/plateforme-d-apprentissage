@@ -27,16 +27,9 @@
         </div>
         <div>
         <p>My Class</p>
-       <select id="select_id" >
-
-<<<<<<< HEAD
-       @foreach ($namess as $key => $val)
-         
-       <option class="form-control">{{$val}}</option>
-=======
+       <select id="select_id" >  
        @foreach ($namess as $key )
        <option value="{{$key['ID_class']}}" class="form-control">{{$key['code']}}</option>
->>>>>>> 2e198368cda38808e2acc6ff1885b2dadc3d5ac2
     
 @endforeach
 

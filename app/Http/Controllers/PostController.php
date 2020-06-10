@@ -121,6 +121,20 @@ class PostController extends Controller
         echo json_encode($output);
 
     }
+    public function get_post_etd(Request $request)
+    {
+       
+        $students  = Post::select('ID_post','objet','detail','type')
+        ->where('ID_prof','=',$request->session()->get('id_prf'))
+        ->where('ID_class','=', $request->session()->get('id_selected_class'))
+        ->orderBy('date', 'DESC');
+
+        return DataTables::of($students )
+        ->addColumn('id', function($students){
+            return $students->ID_post;
+        })
+        ->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *

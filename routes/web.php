@@ -22,6 +22,7 @@ Route::get('/login', function () {
     return view('login');
 });
 
+
 //test send email it"s not used in production 
 Route::get('/sendmail', function () {
    Mail::to('rafapi9855@lerwfv.com')->send( new ConfirmMail() );
@@ -59,6 +60,17 @@ Route::post('get_id_rep','ReponseController@get_id_rep')->name('get_id_rep');
 Route::get('reponse_get','ReponseController@get_reponse')->name('reponse_get');
 
 Route::post('get_id_class','PostController@get_id_class')->name('get_id_class');
+
+Route::get('choix_class','ClasseController@get_choix_class')->name('choix_class');
+
+Route::post('before_int','ClasseController@redirect_int');
+
+Route::get('postg_etd', 'PostController@get_post_etd')->name('postg_etd');
+
+Route::post('get_id_rep_etd','ReponseController@get_id_rep_etd')->name('get_id_rep_etd');
+Route::get('reponse_get_etd','ReponseController@get_reponse_etd')->name('reponse_get_etd');
+
+
 
 Route::get('test_session', 'EtudiantController@test_session');
 
