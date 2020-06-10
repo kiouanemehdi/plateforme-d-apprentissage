@@ -58,6 +58,7 @@ Route::get('studentposts', 'StudentPostsController@get_post')->name('studentpost
 Route::post('get_id_rep','ReponseController@get_id_rep')->name('get_id_rep');
 Route::get('reponse_get','ReponseController@get_reponse')->name('reponse_get');
 
+Route::post('get_id_class','PostController@get_id_class')->name('get_id_class');
 
 Route::get('test_session', 'EtudiantController@test_session');
 

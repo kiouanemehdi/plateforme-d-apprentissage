@@ -157,7 +157,8 @@ class EtudiantController extends Controller
                 {
                     $id_prof = Prof::where('email', $email)->where('password', $password)->first()->ID_prof;
                     $id_univ= Prof::where('email', $email)->where('password', $password)->first()->ID_univ;
-                    $c_code= Classe::where('ID_prof', $id_prof)->get('code');
+                    $c_code= Classe::all()->where('ID_prof','=', $id_prof);
+                   
                    // $c_code=substr($c_code,1);
                     //s$c_code= Classe::table('users')->get()
 
