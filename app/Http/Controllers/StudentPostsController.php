@@ -20,6 +20,15 @@ class StudentPostsController extends Controller
     {
         //
     }
+     public function get_post(Request $request)
+    {
+        $students  = StudentPosts::select('ID_post','objet','detail','type')->where('ID_etd','=',$request->session()->get('id_etd'))->orderBy('date', 'DESC');
+        return DataTables::of($students )
+        ->addColumn('id', function($students){
+            return $students->ID_post;
+        })
+        ->make(true);
+    }
     public function studentPost(Request $request){
 
         $validation = Validator::make($request->all(), [
@@ -59,7 +68,7 @@ class StudentPostsController extends Controller
             'error'     =>  $error_array,
             'success'   =>  $success_output
         );
-        echo json_encode($output);
+       echo json_encode($output);
 
     }
     /**

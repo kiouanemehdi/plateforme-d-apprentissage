@@ -43,8 +43,8 @@ class ClasseController extends Controller
             if($request->get('class_button_action') == "insert")
             {
                 $student = new Classe([
-                    'ID_univ' =>$request->session()->get('id_prf'),
-                    'ID_prof'     =>   $request->session()->get('id_univ'),
+                    'ID_univ' =>$request->session()->get('id_univ'),
+                    'ID_prof'     => $request->session()->get('id_prf'),
                     'ID_sem' =>   $request->get('class_semestre') ,
                     'code'     =>  $request->get('class_code'),
                     'date_creation'    => Carbon::now() /*'2020-06-03 17:15:10'*/

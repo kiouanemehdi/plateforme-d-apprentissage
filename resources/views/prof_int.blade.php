@@ -30,6 +30,7 @@
        <select >
 
        @foreach ($namess as $key => $val)
+         
        <option class="form-control">{{$val}}</option>
     
 @endforeach
@@ -306,7 +307,7 @@ $(document).ready(function() {
                 {
                     $('#form_output').html(data.success);
                     $('#class-form')[0].reset();
-                    $('#add-class-action').val('Add');
+                    $('#addclass-action').val('Add');
                   //  $('.modal-title').text('Add Data');
                     $('#class-button-action').val('insert');
                    // $('#student_table').DataTable().ajax.reload();

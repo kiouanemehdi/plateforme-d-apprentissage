@@ -4,26 +4,46 @@
     <meta charset="UTF-8">
 <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="{{ URL::asset('css/etdstyle.css') }}">   
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ URL::asset('css/style_etd.css') }}"/>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" defer ></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" defer ></script>       
+      <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"  ></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"  ></script>       
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
 
 
-    <title>Document</title>
+    <title>Student</title>
 </head>
 <body>
+
     <div class="grid-container">
+        <div class="item1">
         <div class="header">
-           <a  class="btn btn-primary" style="float: right;">Logout</a>
+          
            <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
+            <a  class="btn btn-primary" style="float: right;">Logout</a>
+        </div>    
         </div>
-        <div class="reponse"></div>
+          
+        <div class="item2">
+            <div class="item-nested-container">
+                <div class="student-posts">
+                  
+            <table id="student_table" class="table table-bordered data-table-holder" width="20px">
+                <thead >
+                    <tr>                        
+                        <th>objet</th>
+                        <th>detail</th>
+                        <th>type</th>
+                        <th style="display:none;">id</th>
+                    </tr>
+                </thead>
+         </table>
+        </div>
         <div class="write_rep">
             <form method="POST" id="student_rep">
             <span id="form_output2"></span>
@@ -38,9 +58,14 @@
          <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" />
             </form>
 
+        </div>    
+                </div>
+         
+
         </div>
-        <div class="post"></div>
-    </div>
+       
+        </div>
+
 
     <!-- Modal -->
 <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -111,7 +136,8 @@
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
  <script type="text/javascript">
          $.ajaxSetup({
@@ -119,8 +145,19 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 })
-
-    $('#student_rep').on('submit', function(event){
+      $('#student_table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('studentposts') }}",
+        columns:[
+            { data: "objet",name:"objet" },
+            { data: "detail",name:"detail" },
+            { data: "type",name:"objet" },
+            { data: "id",name:"id",visible: false }         
+        ]
+     });
+    
+    /*$('#student_rep').on('submit', function(event){
        
     
     $('#form_output2').html('');
@@ -157,19 +194,9 @@
             }
         });
         
-    });
-   /* $('#student_table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('postg') }}",
-        columns:[
-            { data: "objet",name:"objet" },
-            { data: "detail",name:"detail" },
-            { data: "type",name:"objet" },
-            { data: "id",name:"id",visible: false }         
-        ]
-     });
-    var table = $('#student_table').DataTable();
+    });*/
+   
+   /* var table = $('#student_table').DataTable();
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
             var id=row['id'];
@@ -213,7 +240,7 @@
         alert( form_data);
        $.ajax({
             type:'post',
-            url:"{{ url('spost') }}",
+            url:"{{ url('sposts') }}",
             data:form_data,
             dataType:"json",
             success:function(data)
@@ -223,9 +250,10 @@
                  var error_html = '';
                     for(var count = 0; count < data.error.length; count++)
                     {
-                        error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+
+                      //  error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
                     }
-                    $('#form_output').html(error_html);
+                    //$('#form_output').html(error_html);
                 }
                 else
                 {

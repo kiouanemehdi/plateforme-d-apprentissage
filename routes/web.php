@@ -52,6 +52,8 @@ Route::post('sposts','StudentPostsController@studentPost')->name('sposts');
 Route::post('addclasss','ClasseController@addNewClass')->name('addclasss');
 Route::post('postrep','ReponseController@post_rep')->name('postrep');
 Route::post('getclasses','ClasseController@get_classes')->name('getclasses');
+////
+Route::get('studentposts', 'StudentPostsController@get_post')->name('studentposts');
 
 Route::post('get_id_rep','ReponseController@get_id_rep')->name('get_id_rep');
 Route::get('reponse_get','ReponseController@get_reponse')->name('reponse_get');
