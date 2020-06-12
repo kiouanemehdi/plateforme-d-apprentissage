@@ -67,8 +67,8 @@ Route::post('before_int','ClasseController@redirect_int');
 
 Route::get('postg_etd', 'PostController@get_post_etd')->name('postg_etd');
 
-Route::post('get_id_rep_etd','ReponseController@get_id_rep_etd')->name('get_id_rep_etd');
-Route::get('reponse_get_etd','ReponseController@get_reponse_etd')->name('reponse_get_etd');
+Route::post('get_id_rep1','ReponseController@get_id_rep1')->name('get_id_rep1');
+Route::get('reponse_get1','ReponseController@get_reponse1')->name('reponse_get1');
 
 
 

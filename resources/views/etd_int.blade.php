@@ -212,7 +212,7 @@ var table = $('#student_table').DataTable();
             //var seft_id="'"+id+"'";
             console.log(id );
              $.ajax({
-                url: "{{ url('get_id_rep') }}",
+                url: "{{ url('get_id_rep1') }}",
                 type: "post",
                 data:{'ID_pst':id}
                 
@@ -221,7 +221,7 @@ var table = $('#student_table').DataTable();
                 $('#reponse_table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('reponse_get') }}",
+                    ajax: "{{ route('reponse_get1') }}",
                     columns:[
                         { data: "ID_etd",name:"ID_etd" },
                         { data: "contenu",name:"contenu" }        

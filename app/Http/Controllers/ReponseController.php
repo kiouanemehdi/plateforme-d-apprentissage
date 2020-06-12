@@ -18,15 +18,30 @@ class ReponseController extends Controller
     {
         //
     }
-    private $id_pst;
+   
     public function get_id_rep(Request $request)
     {
-        $this->id_pst= $request->get( 'ID_pst' );
+        if(session::has('koupa1'))
+        $request->session()->put('koupa1',null);
+        else
         $request->session()->put('koupa', $request->get( 'ID_pst' ));
     }
     public function get_reponse(Request $request)
     {
         $students  = Reponse::select('ID_etd','contenu')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
+        return DataTables::of($students )->make(true);
+    }
+
+    public function get_id_rep1(Request $request)
+    {
+        if(session::has('koupa'))
+        $request->session()->put('koupa',null);
+        else
+        $request->session()->put('koupa1', $request->get( 'ID_pst' ));
+    }
+    public function get_reponse1(Request $request)
+    {
+        $students  = Reponse::select('ID_etd','contenu')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');
         return DataTables::of($students )->make(true);
     }
 
@@ -52,7 +67,9 @@ class ReponseController extends Controller
             if($request->get('button_action2') == "insert")
             {
                 $student = new Reponse([
+                    'ID_prof'     => null,
                     'ID_post'     => $request->session()->get('koupa'),
+                    'ID_post_etd'     => $request->session()->get('koupa1'),
                     'ID_etd'     =>   $request->session()->get('id_etd'),
                     'contenu'     =>  $request->get('contenu'),
                     'date'    => Carbon::now() /*'2020-06-03 17:15:10'*/

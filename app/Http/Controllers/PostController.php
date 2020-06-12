@@ -103,7 +103,7 @@ class PostController extends Controller
             if($request->get('button_action') == "insert")
             {
                 $student = new Post([
-                    'ID_prof'     =>  '1',/* $request->session()->get('id_prf'),*/
+                    'ID_prof'     => $request->session()->get('id_prf'),
                     
                     'objet'     =>  $request->get('objet'),
                     'detail'     =>  $request->get('detail'),
@@ -125,7 +125,7 @@ class PostController extends Controller
     {
        
         $students  = Post::select('ID_post','objet','detail','type')
-        ->where('ID_prof','=',$request->session()->get('id_prf'))
+        //->where('ID_prof','=',$request->session()->get('id_prf'))
         ->where('ID_class','=', $request->session()->get('id_selected_class'))
         ->orderBy('date', 'DESC');
 
