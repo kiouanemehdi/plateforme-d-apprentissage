@@ -28,7 +28,7 @@ class ReponseController extends Controller
     }
     public function get_reponse(Request $request)
     {
-        $students  = Reponse::select('ID_etd','contenu')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
+        $students  = Reponse::select('contenu','ID_etd')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
 
         return DataTables::of($students )->make(true);
     }
@@ -42,7 +42,7 @@ class ReponseController extends Controller
     }
     public function get_reponse1(Request $request)
     {
-        $students  = Reponse::select('ID_etd','contenu')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');
+        $students  = Reponse::select('contenu','ID_etd')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');
          
         return DataTables::of($students )->make(true);
     }

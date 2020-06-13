@@ -17,7 +17,7 @@
 
     <title>Document</title>
 </head>
-<body>
+<body >
     <div class="grid-container">
         <div class="area1">
         <div class="header">
@@ -31,8 +31,8 @@
        <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
            <div class="post" >
             <h4>Student post</h4>
-        <table id="student_table_post" class="table table-bordered" width="400px">
-                <thead>
+        <table id="student_table_post" class="table table-info" width="400px">
+                <thead style="display:none;">
                     <tr>
                         
                         <th>objet</th>
@@ -43,8 +43,8 @@
                 </thead>
          </table><br>
          <h4>prof post</h4>
-        <table id="student_table" class="table table-bordered" width="400px" >
-                <thead>
+        <table id="student_table" class="table table-warning" width="400px" >
+                <thead style="display:none;">
                     <tr>
                         
                         <th>objet</th>
@@ -58,15 +58,12 @@
         </div>
         <div class="item2">
              <div class="reponse">
-        <table id="reponse_table" class="table " width="900px">
-                    <thead>
+        <table id="reponse_table" class="table table-success" width="900px">
+                    <thead style="display:none;">
                       
                         <tr>   
-                           
-                              <th>Id posts</th>
-                              <th>Posts</th>
-                              
-                            
+                            <th>Posts</th>
+ 
                         </tr>
 
                     </thead>
@@ -182,6 +179,9 @@ $(document).ready(function() {
             { data: "id",name:"id",visible: false }         
         ],
          bInfo : false,
+         scrollY: "150px",
+        scrollCollapse: true,
+        paging:  false,
            lengthChange: false,
         bDestroy: true
      });
@@ -198,6 +198,9 @@ $(document).ready(function() {
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
+        scrollY: "150px",
+        scrollCollapse: true,
+        paging:  false,
          bInfo : false,
   lengthChange: false,
         bDestroy: true
@@ -223,13 +226,14 @@ var table = $('#student_table').DataTable();
                     serverSide: true,
                     ajax: "{{ route('reponse_get') }}",
                     columns:[
-
-                        { data: "ID_etd",name:"ID_etd" } ,
-
-                         { data: "contenu",name:"contenu" }           
+                        { data: "contenu",name:"contenu" } 
+                        //   { data: "ID_etd",name:"ID_etd" }          
             ],
           
             bFilter: false,
+            scrollY: "600px",
+        scrollCollapse: true,
+        paging:  false,
             lengthChange: false,
             bDestroy: true
         });
@@ -253,8 +257,9 @@ var table = $('#student_table').DataTable();
                     serverSide: true,
                     ajax: "{{ route('reponse_get1') }}",
                     columns:[
-                           { data: "ID_etd",name:"ID_etd" } ,
-                          { data: "contenu",name:"contenu" }     
+                        { data: "contenu",name:"contenu" } 
+                         //  { data: "ID_etd",name:"ID_etd" } 
+                              
                           
                    
             ],

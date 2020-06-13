@@ -31,3 +31,17 @@
 	display: grid;
 	grid-template-rows: 80% 20%;
 }
+.dataTables_filter, .dataTables_info { display: none; }
+
+
+
+
+
+
+
+
+
+
+
+
+
