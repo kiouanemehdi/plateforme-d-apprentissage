@@ -1,0 +1,33 @@
+.grid-container{
+
+  display: grid;
+  border: 1px solid black;
+  grid-row-gap: 2px;
+
+}
+.area1{
+	border: 1px solid black;
+
+}
+.headr{
+	
+}
+.area2{
+	display: grid;
+	grid-template-columns: 30% 70%;
+}
+.area2 > * {
+	border: 1px solid black;
+}
+
+.area2 > .item2 > .reponse > table{
+	  border-collapse:separate;
+	 border-radius:6px;
+
+ -moz-border-radius:6px;
+}
+
+.area2 > .item2 > .reponse {
+	display: grid;
+	grid-template-rows: 80% 20%;
+}

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ URL::asset('css/style_etd.css') }}"/>
+    <link rel="stylesheet" href="{{ URL::asset('css/etd_style.css') }}"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
@@ -19,22 +19,60 @@
 </head>
 <body>
     <div class="grid-container">
+        <div class="area1">
         <div class="header">
-           <a  class="btn btn-primary" style="float: right;">Logout</a>
-           <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
+           <a  class="btn btn-primary" style="float: right;" href="logout">Logout</a>
+           <H2>PLATFPORM</H2>
+           
         </div>
-        <div class="reponse">
-        <table id="reponse_table" class="table table-bordered" style="width:100%">
+        </div>
+        <div class="area2">
+            <div class="item1">
+       <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
+           <div class="post" >
+            <h4>Student post</h4>
+        <table id="student_table_post" class="table table-bordered" width="400px">
+                <thead>
+                    <tr>
+                        
+                        <th>objet</th>
+                        <th>detail</th>
+                        <th>type</th>
+                        <th style="display:none;">id</th>
+                    </tr>
+                </thead>
+         </table><br>
+         <h4>prof post</h4>
+        <table id="student_table" class="table table-bordered" width="400px" >
+                <thead>
+                    <tr>
+                        
+                        <th>objet</th>
+                        <th>detail</th>
+                        <th>type</th>
+                        <th style="display:none;">id</th>
+                    </tr>
+                </thead>
+         </table>
+        </div>
+        </div>
+        <div class="item2">
+             <div class="reponse">
+        <table id="reponse_table" class="table " width="900px">
                     <thead>
+                      
                         <tr>   
-                            <th>id etd</th>
-                            <th>contenu</th>
+                           
+                              <th>Id posts</th>
+                              <th>Posts</th>
+                              
+                            
                         </tr>
-                    </thead>
-            </table>
 
-        </div>
-        <div class="write_rep">
+                    </thead>
+
+            </table>
+               <div class="write_rep">
             <form method="POST" id="student_rep">
             <span id="form_output2"></span>
                 <div class="form-group row">
@@ -49,34 +87,12 @@
             </form>
 
         </div>
-        <div class="post">
-            <h4>Student post</h4>
-        <table id="student_table_post" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        
-                        <th>objet</th>
-                        <th>detail</th>
-                        <th>type</th>
-                        <th style="display:none;">id</th>
-                    </tr>
-                </thead>
-         </table><br>
-         <h4>prof post</h4>
-        <table id="student_table" class="table table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        
-                        <th>objet</th>
-                        <th>detail</th>
-                        <th>type</th>
-                        <th style="display:none;">id</th>
-                    </tr>
-                </thead>
-         </table>
         </div>
-    </div>
-
+       
+     
+ 
+</div>
+</div>
     <!-- Modal -->
 <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -165,20 +181,29 @@ $(document).ready(function() {
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
+         bInfo : false,
+           lengthChange: false,
         bDestroy: true
      });
      $('#student_table_post').DataTable({
+ 
         processing: true,
         serverSide: true,
         ajax: "{{ route('studentposts') }}",
+      
         columns:[
+
             { data: "objet",name:"objet" },
             { data: "detail",name:"detail" },
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
+         bInfo : false,
+  lengthChange: false,
         bDestroy: true
      });
+
+
 
 var table = $('#student_table').DataTable();
     $('#student_table tbody').on( 'click', 'tr', function () {
@@ -198,9 +223,14 @@ var table = $('#student_table').DataTable();
                     serverSide: true,
                     ajax: "{{ route('reponse_get') }}",
                     columns:[
-                        { data: "ID_etd",name:"ID_etd" },
-                        { data: "contenu",name:"contenu" }        
+
+                        { data: "ID_etd",name:"ID_etd" } ,
+
+                         { data: "contenu",name:"contenu" }           
             ],
+          
+            bFilter: false,
+            lengthChange: false,
             bDestroy: true
         });
         });
@@ -223,9 +253,15 @@ var table = $('#student_table').DataTable();
                     serverSide: true,
                     ajax: "{{ route('reponse_get1') }}",
                     columns:[
-                        { data: "ID_etd",name:"ID_etd" },
-                        { data: "contenu",name:"contenu" }        
+                           { data: "ID_etd",name:"ID_etd" } ,
+                          { data: "contenu",name:"contenu" }     
+                          
+                   
             ],
+            bInfo : false,
+            bPaginate: false,
+             bFilter: false,
+             lengthChange: false,
             bDestroy: true
         });
         });
@@ -346,6 +382,7 @@ var table = $('#student_table').DataTable();
             }
         });
     });
+ window.history.forward();
  </script>   
 </body>
 </html>

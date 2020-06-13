@@ -42,7 +42,7 @@
     <select class="form-control" type="text" name="other_class" id="other_class">
        <option selected="true" disabled="disabled">Choose your new class</option>    
     @foreach($class_others as $key1)
-        <option value="{{$key->ID_class}}"> {{$key1->code}} </option>
+        <option value="{{$key1->ID_class}}"> {{$key1->code}} </option>
         @endforeach
     </select><br>
     </div>
