@@ -31,7 +31,7 @@
        <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
            <div class="post" >
             <h4>Student post</h4>
-        <table id="student_table_post" class="table table-info" width="400px">
+        <table id="student_table_post" class="" width="400px">
                 <thead style="display:none;">
                     <tr>
                         
@@ -43,7 +43,7 @@
                 </thead>
          </table><br>
          <h4>prof post</h4>
-        <table id="student_table" class="table table-warning" width="400px" >
+        <table id="student_table" class="" width="400px" >
                 <thead style="display:none;">
                     <tr>
                         
@@ -58,7 +58,7 @@
         </div>
         <div class="item2">
              <div class="reponse">
-        <table id="reponse_table" class="table table-success" width="900px">
+        <table id="reponse_table" class="" width="900px">
                     <thead style="display:none;">
                       
                         <tr>   
@@ -179,7 +179,7 @@ $(document).ready(function() {
             { data: "id",name:"id",visible: false }         
         ],
          bInfo : false,
-         scrollY: "150px",
+         scrollY: "250px",
         scrollCollapse: true,
         paging:  false,
            lengthChange: false,
@@ -198,7 +198,7 @@ $(document).ready(function() {
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
-        scrollY: "150px",
+        scrollY: "250px",
         scrollCollapse: true,
         paging:  false,
          bInfo : false,
@@ -263,10 +263,12 @@ var table = $('#student_table').DataTable();
                           
                    
             ],
-            bInfo : false,
-            bPaginate: false,
-             bFilter: false,
-             lengthChange: false,
+            bFilter: false,
+            scrollY: "600px",
+        scrollCollapse: true,
+        paging:  false,
+            lengthChange: false,
+          
             bDestroy: true
         });
         });
