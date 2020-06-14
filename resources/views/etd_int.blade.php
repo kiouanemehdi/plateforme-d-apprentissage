@@ -61,7 +61,8 @@
         <table id="reponse_table" class="" width="900px">
                     <thead style="display:none;">
                       
-                        <tr>   
+                        <tr> 
+                           <th width="">u</th>  
                             <th>Posts</th>
  
                         </tr>
@@ -201,8 +202,8 @@ $(document).ready(function() {
         scrollY: "250px",
         scrollCollapse: true,
         paging:  false,
-         bInfo : false,
-  lengthChange: false,
+        bInfo : false,
+        lengthChange: false,
         bDestroy: true
      });
 
@@ -232,8 +233,8 @@ var table = $('#student_table').DataTable();
           
             bFilter: false,
             scrollY: "600px",
-        scrollCollapse: true,
-        paging:  false,
+            scrollCollapse: true,
+             paging:  false,
             lengthChange: false,
             bDestroy: true
         });
@@ -257,20 +258,21 @@ var table = $('#student_table').DataTable();
                     serverSide: true,
                     ajax: "{{ route('reponse_get1') }}",
                     columns:[
-                        { data: "contenu",name:"contenu" } 
-                         //  { data: "ID_etd",name:"ID_etd" } 
-                              
-                          
+                        { data: "username",name:"username" },
+                          { data: "contenu",name:"contenu" } 
+                                        
+                 ], 
                    
-            ],
+
             bFilter: false,
             scrollY: "600px",
-        scrollCollapse: true,
-        paging:  false,
+            scrollCollapse: true,
+            paging:  false,
             lengthChange: false,
           
             bDestroy: true
         });
+
         });
 
     $('#student_rep').on('submit', function(event){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Reponse;
 use Carbon\Carbon;
 use DataTables;
@@ -28,7 +29,7 @@ class ReponseController extends Controller
     }
     public function get_reponse(Request $request)
     {
-        $students  = Reponse::select('contenu','ID_etd')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
+       $students  = Reponse::select('contenu','ID_etd')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
 
         return DataTables::of($students )->make(true);
     }
@@ -42,9 +43,11 @@ class ReponseController extends Controller
     }
     public function get_reponse1(Request $request)
     {
-        $students  = Reponse::select('contenu','ID_etd')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');
-         
-        return DataTables::of($students )->make(true);
+       /* $students  = Reponse::select('contenu','ID_etd')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');*/
+        $usersz = DB::table('reponses')
+            ->join('etudiants', 'reponses.ID_etd', '=', 'etudiants.ID_etd')
+            ->select('contenu', 'username')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');
+                    return DataTables::of($usersz)->make(true);
     }
 
 

@@ -74,3 +74,5 @@ Route::get('reponse_get1','ReponseController@get_reponse1')->name('reponse_get1'
 
 Route::get('test_session', 'EtudiantController@test_session');
 
+
+

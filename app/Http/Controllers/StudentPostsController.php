@@ -9,6 +9,7 @@ use Validator;
 use Carbon\Carbon;
 use DataTables;
 
+use Session;
 class StudentPostsController extends Controller
 {
     /**
@@ -23,7 +24,7 @@ class StudentPostsController extends Controller
      public function get_post(Request $request)
     {
         $students  = StudentPosts::select('ID_post','objet','detail','type')
-        ->where('ID_etd','=',$request->session()->get('id_etd'))
+       
         ->where('ID_class','=',$request->session()->get('id_selected_class'))
         ->orderBy('date', 'DESC');
         return DataTables::of($students )
@@ -74,6 +75,11 @@ class StudentPostsController extends Controller
         );
        echo json_encode($output);
 
+    }
+    public function returnPost(Request $request){
+        $students  = StudentPosts::select('detail','ID_etd')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
+
+        return DataTables::of($students )->make(true);
     }
     /**
      * Show the form for creating a new resource.
