@@ -24,8 +24,9 @@
                 
                 <div class="col-sm-10">
     <select class="form-control" type="text" name="inscrit_class" id="inscrit_class">
+    <option selected="true" disabled="disabled">Choose your class</option> 
         @foreach($class_inscrit as $key)
-        <option selected="true" disabled="disabled">Choose your class</option>    
+           
         <option value="{{$key->ID_class}}"> {{$key->code}} </option>
         @endforeach
     </select><br>

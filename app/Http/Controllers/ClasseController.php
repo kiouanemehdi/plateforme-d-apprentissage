@@ -27,7 +27,7 @@ class ClasseController extends Controller
     }
     public function addNewClass(Request $request){
          $validation = Validator::make($request->all(), [
-            'class-name' => 'required',
+            'class_name' => 'required',
             'class_code'  => 'required',
            
         ]);
@@ -49,7 +49,9 @@ class ClasseController extends Controller
                     'ID_univ' => $request->session()->get('id_univ'),
                     'ID_prof' => $request->session()->get('id_prf'),
                     'ID_sem'=> $request->get('class_semestre') ,
+                    
                     'code' => $request->get('class_code'),
+                    'class_name' => $request->get('class_name'),
                     'date_creation' => Carbon::now() /*'2020-06-03 17:15:10'*/
                 ]);
                 $student->save();

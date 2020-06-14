@@ -227,6 +227,7 @@ var table = $('#student_table').DataTable();
                     serverSide: true,
                     ajax: "{{ route('reponse_get') }}",
                     columns:[
+                        { data: "username",name:"username" },
                         { data: "contenu",name:"contenu" } 
                         //   { data: "ID_etd",name:"ID_etd" }          
             ],
