@@ -213,6 +213,7 @@ var table = $('#student_table').DataTable();
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
             var id=row['id'];
+            $(this).addClass("selected").siblings().removeClass("selected");
             //var seft_id="'"+id+"'";
             console.log(id );
              $.ajax({
@@ -245,6 +246,7 @@ var table = $('#student_table').DataTable();
     $('#student_table_post tbody').on( 'click', 'tr', function () {
             var row= table1.row( this ).data();
             var id=row['id'];
+            $(this).addClass("selected").siblings().removeClass("selected");
             //var seft_id="'"+id+"'";
             console.log(id );
              $.ajax({
@@ -391,7 +393,10 @@ var table = $('#student_table').DataTable();
                 }
             }
         });
+
     });
+
+
  window.history.forward();
  </script>   
 </body>

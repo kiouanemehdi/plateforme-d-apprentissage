@@ -32,4 +32,7 @@ html, body, .grid-container { height: 100%; margin: 0; }
  top: 0;
  left: 0;
 }
-
+#student_table tbody tr:hover, #student_table tbody tr.selected {
+  background-color: blue;
+}
+td {padding: 5px;}

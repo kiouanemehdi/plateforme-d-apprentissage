@@ -210,6 +210,7 @@ $(document).ready(function() {
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
             var id=row['id'];
+            $(this).addClass("selected").siblings().removeClass("selected");
             //var seft_id="'"+id+"'";
             console.log(id );
              $.ajax({

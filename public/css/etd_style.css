@@ -40,12 +40,13 @@ table tr{
     justify-content: space-between;
     margin-bottom: 5px;
 }
-
-
-
-
-
-
+#student_table_post tbody tr:hover, #student_table_post tbody tr.selected {
+    background-color: green;
+}
+#student_table tbody tr:hover, #student_table tbody tr.selected {
+    background-color: blue;
+}
+td {padding: 5px;}
 
 
 
