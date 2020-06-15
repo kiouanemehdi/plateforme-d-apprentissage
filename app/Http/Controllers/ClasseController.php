@@ -73,7 +73,7 @@ class ClasseController extends Controller
             $join->on('inscrits.ID_class', '=', 'classes.ID_class')
                  ->where('inscrits.ID_etd', '=',$id_etd);
         })
-        ->select('classes.ID_class','classes.code')
+        ->select('classes.ID_class','classes.class_name')
         ->get();
 
        // $std_univ=Etudiant::select('ID_univ')->where('ID_etd','=','1')->first()->ID_univ;
@@ -84,7 +84,7 @@ class ClasseController extends Controller
                  ->where('etudiants.ID_etd', '=', $id_etd)
                  ->whereNotIn('classes.ID_class', Inscrit::select('ID_class')->where('ID_etd','=',$id_etd));
         })
-        ->select('classes.ID_class','classes.code')
+        ->select('classes.ID_class','classes.class_name')
         ->get();
 
             return view('choix_class',['class_inscrit'=>$inscrit_class,'class_others'=>$other_class]);
@@ -96,6 +96,7 @@ class ClasseController extends Controller
         $request->session()->put('id_selected_class',$idc);
         return view('etd_int');
     }
+
     /**
      * Show the form for creating a new resource.
      *

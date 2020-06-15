@@ -60,6 +60,9 @@ Route::post('get_id_rep','ReponseController@get_id_rep')->name('get_id_rep');
 Route::get('reponse_get','ReponseController@get_reponse')->name('reponse_get');
 
 Route::post('get_id_class','PostController@get_id_class')->name('get_id_class');
+Route::post('get_id_new_class','InscritController@get_id_new_class')->name('get_id_new_class');
+
+Route::post('check_class_code','InscritController@check_class_code')->name('check_class_code');
 
 Route::get('choix_class','ClasseController@get_choix_class')->name('choix_class');
 

@@ -29,7 +29,7 @@
         <p>My Class</p>
        <select id="select_id" >  
        @foreach ($namess as $key )
-       <option value="{{$key['ID_class']}}" class="form-control">{{$key['code']}}</option>
+       <option value="{{$key['ID_class']}}" class="form-control">{{$key['class_name']}}</option>
     
 @endforeach
 
