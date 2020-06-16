@@ -39,6 +39,7 @@
                         <th>detail</th>
                         <th>type</th>
                         <th style="display:none;">id</th>
+                        
                     </tr>
                 </thead>
          </table><br>
@@ -265,8 +266,8 @@ var table = $('#student_table').DataTable();
                           { data: "contenu",name:"contenu" } 
                                         
                  ], 
-                   
-
+                 
+                
             bFilter: false,
             scrollY: "600px",
             scrollCollapse: true,
