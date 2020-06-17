@@ -58,8 +58,12 @@
             <table id="reponse_table" class="table table-bordered" style="width:100%">
                     <thead>
                         <tr>   
-                            <th>id etd</th>
-                            <th>contenu</th>
+                           
+                            <th>Posts</th>
+                            <th width="">u</th> 
+                            <th>verification</th> 
+                            <th style="display:none;">id_rep</th>
+                            <th id="ver">verification_choix</th>
                         </tr>
                     </thead>
             </table>
@@ -182,6 +186,26 @@
 
 //get id of the selected class
 $(document).ready(function() {
+
+    $("#reponse_table").on("change","#etat", function () {
+        console.log($(this).val());
+       $.ajax({
+            type: 'POST',
+            url: "{{ url('get_etat_reponse') }}",
+            data:  {'etat_value':$(this).val()}
+        });
+            var tab = $('#reponse_table').DataTable();
+            $('#reponse_table tbody').on( 'click', 'tr', function () {
+                var row= tab.row( this ).data();
+                var id=row['id_rep'];
+                console.log(id);
+                $.ajax({
+            type: 'POST',
+            url: "{{ url('get_id_etat_reponse') }}",
+            data:  {'id_rep':id}
+        });
+            });
+    });
     $("#select_id").change(function(){
         //alert($('#select_id option:selected').val());
         $.ajax({
@@ -206,6 +230,11 @@ $(document).ready(function() {
         ],
         bDestroy: true
      });
+     var times = [
+	"true", 
+	"false", 
+	"..."
+];
      var table = $('#student_table').DataTable();
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
@@ -223,14 +252,42 @@ $(document).ready(function() {
                 $('#reponse_table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('reponse_get') }}",
+                   // ajax: "{{ route('reponse_get') }}",
+                   ajax: "{{ route('reponse_get_test') }}",
                     columns:[
-                        { data: "ID_etd",name:"ID_etd" },
-                        { data: "contenu",name:"contenu" }        
+                          { data: "contenu",name:"contenu" },
+                          { data: "username",name:"username" },
+                          { data: "verification",name:"verification" },
+                          { data: "id_rep",name:"id_rep",visible: false } ,
+                          { render: function(d,t,r){
+                                var $select = $("<select></select>", {
+                                    "id":"etat",
+                                    "value": d
+                                });
+                                $.each(times, function(k,v){
+                                    var $option = $("<option></option>", {
+                                        "text": v,
+                                        "value": v
+                                    });
+                                    if(d === v){
+                                        $option.attr("selected", "selected")
+                                    }
+                                    $select.append($option);
+                                });
+                                return $select.prop("outerHTML");
+                            }
+                        }   
             ],
+           /* rowCallback: function (row, data) {
+    var element = $(row).find('#etat');
+    element.on("change", function () {
+        alert($('#etat option:selected').val());
+    });
+} ,*/
             bDestroy: true
         });
         });
+
     });
 
    // $('#reponse_table').DataTable().clear();

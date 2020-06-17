@@ -19,12 +19,25 @@ class ReponseController extends Controller
     {
         //
     }
+     public function get_etat_reponse(Request $request)
+    {
+        $request->session()->put('etat_value',$request->get('etat_value'));
+        Reponse::where(['ID_reponse' => $request->session()->get('id_rep')])->update(['verification' => $request->get('etat_value')]);
+ 
+        
+    }
+
+    public function get_id_etat_reponse(Request $request)
+    {
+      $request->session()->put('id_rep',$request->get('id_rep'));
+    }
+
    
     public function get_id_rep(Request $request)
     {
         if(session::has('koupa1'))
-        $request->session()->put('koupa1',null);
-        else
+      {  $request->session()->put('koupa1',null);}
+        
         $request->session()->put('koupa', $request->get( 'ID_pst' ));
     }
     public function get_reponse(Request $request)
@@ -33,15 +46,31 @@ class ReponseController extends Controller
   //return DataTables::of($students )->make(true);
   $usersz = DB::table('reponses')
   ->join('etudiants', 'reponses.ID_etd', '=', 'etudiants.ID_etd')
-  ->select('contenu', 'username')->where('ID_post_etd','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
+  ->select('contenu', 'username','verification')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
           return DataTables::of($usersz)->make(true);
+    }
+
+    public function get_reponse_test(Request $request)
+    {
+      // $students  = Reponse::select('contenu','ID_etd')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
+  //return DataTables::of($students )->make(true);
+  $usersz = DB::table('reponses')
+  ->join('etudiants', 'reponses.ID_etd', '=', 'etudiants.ID_etd')
+  ->select('ID_reponse','contenu', 'username','verification')->where('ID_post','=',$request->session()->get('koupa'))->orderBy('date', 'DESC');
+          return DataTables::of($usersz)
+          ->addColumn('id_rep', function($usersz){
+            return $usersz->ID_reponse;
+        })
+          ->addColumn('verification_choix', function(){
+            return '';
+        })->make(true);
     }
 
     public function get_id_rep1(Request $request)
     {
         if(session::has('koupa'))
-        $request->session()->put('koupa',null);
-        else
+       { $request->session()->put('koupa',null);}
+        
         $request->session()->put('koupa1', $request->get( 'ID_pst' ));
     }
     public function get_reponse1(Request $request)
@@ -49,7 +78,7 @@ class ReponseController extends Controller
        /* $students  = Reponse::select('contenu','ID_etd')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');*/
         $usersz = DB::table('reponses')
             ->join('etudiants', 'reponses.ID_etd', '=', 'etudiants.ID_etd')
-            ->select('contenu', 'username')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');
+            ->select('contenu', 'username','verification')->where('ID_post_etd','=',$request->session()->get('koupa1'))->orderBy('date', 'DESC');
                     return DataTables::of($usersz)->make(true);
     }
 
@@ -80,6 +109,7 @@ class ReponseController extends Controller
                     'ID_post_etd'     => $request->session()->get('koupa1'),
                     'ID_etd'     =>   $request->session()->get('id_etd'),
                     'contenu'     =>  $request->get('contenu'),
+                    'verification'     => '...',
                     'date'    => Carbon::now() /*'2020-06-03 17:15:10'*/
                 ]);
                 $student->save();

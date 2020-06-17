@@ -65,7 +65,7 @@
                         <tr> 
                            <th width="">u</th>  
                             <th>Posts</th>
- 
+                            <th>verification</th> 
                         </tr>
 
                     </thead>
@@ -230,7 +230,8 @@ var table = $('#student_table').DataTable();
                     ajax: "{{ route('reponse_get') }}",
                     columns:[
                         { data: "username",name:"username" },
-                        { data: "contenu",name:"contenu" } 
+                        { data: "contenu",name:"contenu" } ,
+                        { data: "verification",name:"verification" }
                         //   { data: "ID_etd",name:"ID_etd" }          
             ],
           
@@ -263,7 +264,8 @@ var table = $('#student_table').DataTable();
                     ajax: "{{ route('reponse_get1') }}",
                     columns:[
                         { data: "username",name:"username" },
-                          { data: "contenu",name:"contenu" } 
+                          { data: "contenu",name:"contenu" },
+                          { data: "verification",name:"verification" }
                                         
                  ], 
                  

@@ -58,6 +58,7 @@ Route::get('studentposts', 'StudentPostsController@get_post')->name('studentpost
 
 Route::post('get_id_rep','ReponseController@get_id_rep')->name('get_id_rep');
 Route::get('reponse_get','ReponseController@get_reponse')->name('reponse_get');
+Route::get('reponse_get_test','ReponseController@get_reponse_test')->name('reponse_get_test');
 
 Route::post('get_id_class','PostController@get_id_class')->name('get_id_class');
 Route::post('get_id_new_class','InscritController@get_id_new_class')->name('get_id_new_class');
@@ -73,7 +74,8 @@ Route::get('postg_etd', 'PostController@get_post_etd')->name('postg_etd');
 Route::post('get_id_rep1','ReponseController@get_id_rep1')->name('get_id_rep1');
 Route::get('reponse_get1','ReponseController@get_reponse1')->name('reponse_get1');
 
-
+Route::post('get_etat_reponse','ReponseController@get_etat_reponse')->name('get_etat_reponse');
+Route::post('get_id_etat_reponse','ReponseController@get_id_etat_reponse')->name('get_id_etat_reponse');
 
 Route::get('test_session', 'EtudiantController@test_session');
 
