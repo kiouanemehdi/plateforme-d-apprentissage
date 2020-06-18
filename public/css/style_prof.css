@@ -6,6 +6,8 @@ html, body, .grid-container { height: 100%; margin: 0; }
   grid-template-rows: 0.1fr  0.2fr 2.9fr ;
   gap: 1px 1px;
  grid-template-areas: "header header header header" "new_post reponse reponse reponse" "post reponse reponse reponse" "post avg_qst_rep_time people_online people_online";
+ width: 100vw;
+ height: 100vh;
 }
 .grid-container > .header > div{
 	grid-template-rows: 1fr 1fr;

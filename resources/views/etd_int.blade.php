@@ -20,17 +20,17 @@
 <body >
     <div class="grid-container">
         <div class="area1">
-        <div class="header"  style="background-color: #3e7aab">
-           <a  class="btn btn-primary" style="float: right;" href="logout">Logout</a>
-           <H2>PLATFPORM</H2>
+        <div class="header"  style="background-color: #f7fff7">
+           <a  class="btn" id="logout" href="logout">Logout</a>
            
+           <img style="margin:0;" src="{{ URL::asset('img/logo-sfe.png') }}">
         </div>
         </div>
         <div class="area2">
             <div class="item1">
-       <button id="add_student_post" class="btn btn-primary">+Add New Post</button>
+       <button id="add_student_post" class="btn" >+Add New Post</button>
            <div class="post" >
-            <h4>Student post</h4>
+           <center> <h4 style="font-weight: bold;margin-top:20px;color:#4c99ab;">Student Posts</h4><center>
         <table id="student_table_post" class="" width="400px">
                 <thead style="display:none;">
                     <tr>
@@ -43,7 +43,7 @@
                     </tr>
                 </thead>
          </table><br>
-         <h4>prof post</h4>
+        <center> <h4 style="font-weight: bold;color:#4c99ab;">Prof posts</h4></center>
         <table id="student_table" class="" width="400px" >
                 <thead style="display:none;">
                     <tr>
@@ -71,7 +71,7 @@
                     </thead>
 
             </table>
-               <div class="write_rep" style="margin-left: 50px; ">
+               <div class="write_rep" style="margin-left: 30px;">
             <form method="POST" id="student_rep">
             <span id="form_output2"></span>
                 <div class="form-group row">
@@ -79,10 +79,11 @@
                     <div class="col-sm-10">
                     <textarea class="form-control" type="text" name="contenu" id="contenu"></textarea>
                     </div>
-            </div>
+            
 
             <input type="hidden" name="button_action2" id="button_action2" value="insert" />
-         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" style="margin-left:700px ;" />
+         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" style="width:100px" />
+         </div>
             </form>
 
         </div>
@@ -181,7 +182,7 @@ $(document).ready(function() {
             { data: "id",name:"id",visible: false }         
         ],
          bInfo : false,
-         scrollY: "250px",
+         scrollY: "200px",
         scrollCollapse: true,
         paging:  false,
           
@@ -200,7 +201,7 @@ $(document).ready(function() {
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
-        scrollY: "250px",
+        scrollY: "200px",
         scrollCollapse: true,
         paging:  false,
         bInfo : false,
@@ -236,7 +237,8 @@ var table = $('#student_table').DataTable();
             ],
           
             bFilter: false,
-            scrollY: "600px",
+            scrollY: "500px",
+           
             scrollCollapse: true,
              paging:  false,
             lengthChange: false,
@@ -271,7 +273,7 @@ var table = $('#student_table').DataTable();
                  
                 
             bFilter: false,
-            scrollY: "600px",
+            scrollY: "500px",
             scrollCollapse: true,
             paging:  false,
             lengthChange: false,

@@ -16,6 +16,7 @@
         @csrf
         <label style="font-size: 20px;margin-top: 50px; padding-right: 200px;">Université List : </label>
         <select name="domain" class="form-control" style="width: 50%;  ">
+        <option selected="true" disabled="disabled">Choose your university</option>
             <?php foreach ($univs as $univ ){ ?>
             <option  value="<?php echo $univ['ID_univ']; ?>"> <?php echo $univ['nom'] ;?> </option>
             <?php } ?>

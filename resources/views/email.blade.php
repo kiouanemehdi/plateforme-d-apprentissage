@@ -10,9 +10,9 @@
 <form action="email_verification" method="POST">
 @csrf
         <label>entrer email</label>
-        <input type="text" name="email" class="form-control" placeholder="example@edu.est"></input><br>
+        <input type="text" name="email" class="form-control" placeholder="entrer email"></input><br>
         <label>confirmer l'email</label>
-        <input type="text" name="email_confirm" class="form-control" placeholder="Enter password..."></input>
+        <input type="text" name="email_confirm" class="form-control" placeholder="confirmer email"></input>
          <button type='submit' class="btn btn-primary"> choisir </button>           
     </form>
 </div>

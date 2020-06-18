@@ -30,7 +30,8 @@
 
       
        <select id="select_id" >  
-          <p>My Class</p>
+          
+          <option selected="true" disabled="disabled">Choose your class</option>
        @foreach ($namess as $key )
        <option value="{{$key['ID_class']}}" class="form-control">{{$key['class_name']}}</option>
     
@@ -326,14 +327,16 @@ $('#student_table_post').DataTable({
                                     "id":"etat",
                                     "value": d
                                 });
+                                $select.append('  <option selected="true" disabled="disabled">Choose</option>');
                                 $.each(times, function(k,v){
                                     var $option = $("<option></option>", {
                                         "text": v,
                                         "value": v
                                     });
                                     if(d === v){
-                                        $option.attr("selected", "selected")
+                                       // $option.attr("selected", "selected")
                                     }
+                                    
                                     $select.append($option);
                                 });
                                 return $select.prop("outerHTML");

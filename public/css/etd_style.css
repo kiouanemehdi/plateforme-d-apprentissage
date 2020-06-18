@@ -1,25 +1,35 @@
+body,html{
+    overflow:hidden;
+   
+  }
 .grid-container{
 
   display: grid;
   grid-template-rows: 10% 70%;
-  grid-row-gap: 2px;
+  grid-row-gap:5px;
+width:100%;
 
 }
 .area1{
-	border: 1px solid black;
+    border-bottom: 10px solid #4c99ab;
+}
 
-}
-.header{
-	
-}
 .area2{
 	display: grid;
 
 	grid-template-columns: 30% 70%;
 
 }
+.area1 > * {
+
+    height: 10vh;
+}
 .area2 > * {
-	border: 1px solid black;
+    
+    border-right: 5px solid #4c99ab;
+   
+    
+    height: 88vh;
 }
 
 .area2 > .item2 > .reponse > table{
@@ -27,33 +37,88 @@
 	 border-radius:6px;
 
  -moz-border-radius:6px;
+ height: 60vh;
 }
-
+.area2 > .item2 {
+    background-color: #f7fff7;
+}
+.area2 > .item1 {
+    background-color: #f7fff7;
+}
 .area2 > .item2 > .reponse {
 	display: grid;
-
+    height: 100vh;
 	
+}
+.area2 > .item2 > .reponse > #reponse_table_wrapper{
+    height: 60vh;
+}
+.area2 > .item2 > .reponse > #reponse_table_wrapper >.row >.col-sm-12>.dataTables_scroll {
+    width: 980px;
+}
+.area2 > .item1 >.post >#student_table_post_wrapper >.row >.col-sm-12>.dataTables_scroll{
+    width: 450px;
+}
+.area2 > .item1 >.post >#student_table_wrapper >.row >.col-sm-12>.dataTables_scroll{
+    width: 450px;
 }
 .dataTables_filter, .dataTables_info { display: none; }
 table tr{
-	border: 2px solid black;
+	border: 2px solid #4c99ab;
 	border-radius: 5px;
     padding: 10px 10px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
 }
+#student_table_post tbody tr , #student_table tbody tr,#reponse_table tbody tr{
+    background-color: white;
+
+}
+
 #student_table_post tbody tr:hover, #student_table_post tbody tr.selected {
-    background-color: green;
+    background-color: #bedcbe;
+    cursor: pointer;
 }
 #student_table tbody tr:hover, #student_table tbody tr.selected {
-    background-color: blue;
+    background-color: #bedcbe;
+    cursor: pointer;
 }
 td {padding: 5px;}
 
-
-
-
+.write_rep{
+    margin-bottom: 0;
+}
+.area2 > .item1 > #add_student_post{
+font-weight: bold;
+color:#4c99ab;
+border:2px solid #4c99ab;
+width:100%; 
+height:60px;
+padding:7px;
+font-size:30px;
+}
+.area2 > .item1 > #add_student_post:hover{
+    background-color: #4c99ab;
+    color: #f7fff7;
+    cursor: pointer;
+}
+.area1 > .header >#logout{
+    font-weight: bold;
+    color:#4c99ab;
+    border:2px solid #4c99ab;
+    float: right;
+    height:60%;
+    width:8%;
+    padding:5px;
+    font-size:20px;
+    margin:15px;
+}
+.area1 > .header >#logout:hover{
+    background-color: #e34545;
+    color: #f7fff7;
+    cursor: pointer;
+}
 
 
 
