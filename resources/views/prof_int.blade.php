@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ URL::asset('css/style_prof.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('css/style_prof.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
@@ -20,29 +20,50 @@
 </head>
 <body>
     <div class="grid-container">
-        <div class="header">
-        <h2 style="float:left;" id='name'> bienvenue ** {{ Session::get('prf_username')}} ** id : {{ Session::get('id_prf')}} ** </h2>
-        <div class="">
-        <button name="add-class" id="add-class" type="button" class="btn btn-primary" data-toggle="modal" >ADD NEW Class</button>
+        <div class="header"  >
+       
+        <div  style="background-color: blue; ">
+             <h2 style="float:left;" id='name'> bienvenue ** {{ Session::get('prf_username')}} ** id : {{ Session::get('id_prf')}} ** class id {{Session::get('id_selected_class')}} </h2>
+              
         </div>
-        <div>
-        <p>My Class</p>
+        <div style="margin-top: 40px;">
+
+      
        <select id="select_id" >  
+          <p>My Class</p>
        @foreach ($namess as $key )
        <option value="{{$key['ID_class']}}" class="form-control">{{$key['class_name']}}</option>
     
 @endforeach
 
        </select>
+
+<a style="float:right;" class="btn btn-primary" href="logout">Log out</a>
+        <button name="add-class" id="add-class" type="button" class="btn btn-primary" data-toggle="modal" >ADD NEW Class</button>
+
         </div>
-        <a style="float:right;" class="btn btn-primary" href="logout">Log out</a>
+       
         </div>
+        
         <div class="">
         <button name="add" id="add_data" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">ADD NEW POST</button>
         </div>
         <div class="post">
-            <table id="student_table" class="table table-bordered" style="width:100%">
+            <h4>My Posts : </h4>
+            <table id="student_table" class="table table-bordered " style="width:100% ; border: 1px solid;">
                 <thead>
+                    <tr>
+                        
+                        <th>objet</th>
+                        <th>detail</th>
+                        <th>type</th>
+                        <th style="display:none;">id</th>
+                    </tr>
+                </thead>
+         </table><br>
+         <h4>Students Posts : </h4>
+          <table id="student_table_post" class="table table-bordered" style="width:100%; border: 1px solid;" >
+                <thead >
                     <tr>
                         
                         <th>objet</th>
@@ -55,7 +76,7 @@
         </div>
 
         <div class="reponse">
-            <table id="reponse_table" class="table table-bordered" style="width:100%">
+            <table id="reponse_table" class="table table-bordered" width="900px">
                     <thead>
                         <tr>   
                            
@@ -67,6 +88,21 @@
                         </tr>
                     </thead>
             </table>
+             <div class="write_rep" style="margin-left: 100px; width: 900px;">
+            <form method="POST" id="student_rep" >
+            <span id="form_output2"></span>
+                <div class="form-group row">
+                    
+                    <div class="col-sm-10">
+                    <textarea class="form-control" type="text" name="contenu" id="contenu"></textarea>
+                    </div>
+            </div>
+
+            <input type="hidden" name="button_action2" id="button_action2" value="insert" />
+         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" style="margin-left: 690px;" />
+            </form>
+
+        </div>
         </div>
         <div class="avg_qst_rep_time"></div>
         <div class="people_online"></div>
@@ -212,10 +248,31 @@ $(document).ready(function() {
             type: 'POST',
             url: "{{ url('get_id_class') }}",
             data:  {'id_class':$('#select_id option:selected').val()}
+           
         });
-  //  });
 
+$('#student_table_post').DataTable({
+   
+        processing: true,
+        serverSide: true,
 
+        ajax: "{{ route('studentposts') }}",
+      
+        columns:[
+
+            { data: "objet",name:"objet" },
+            { data: "detail",name:"detail" },
+            { data: "type",name:"objet" },
+            { data: "id",name:"id",visible: false }         
+        ],
+        
+        scrollY: "90px",
+        scrollCollapse: true,
+        paging:  false,
+        bInfo : false,
+        lengthChange: false,
+        bDestroy: true
+     });
 
 //$("#select_id").change(function(){
     $('#student_table').DataTable({
@@ -228,6 +285,11 @@ $(document).ready(function() {
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
+          scrollY: "90px",
+        scrollCollapse: true,
+        paging:  false,
+        bInfo : false,
+        lengthChange: false,
         bDestroy: true
      });
      var times = [
@@ -282,14 +344,112 @@ $(document).ready(function() {
     var element = $(row).find('#etat');
     element.on("change", function () {
         alert($('#etat option:selected').val());
-    });
+    });  
 } ,*/
+bFilter: false,
+           paging:  false,
+        bInfo : false,
+          
             bDestroy: true
         });
         });
 
+        var table1 = $('#student_table_post').DataTable();
+    $('#student_table_post tbody').on( 'click', 'tr', function () {
+
+            var row= table1.row( this ).data();
+            var id=row['id'];
+            $(this).addClass("selected").siblings().removeClass("selected");
+            //var seft_id="'"+id+"'";
+            console.log(id );
+             $.ajax({
+                url: "{{ url('get_id_rep1') }}",
+                type: "post",
+                data:{'ID_pst':id}
+                
+                });
+
+                $('#reponse_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('reponse_get1') }}",
+                     columns:[
+                          { data: "contenu",name:"contenu" },
+                          { data: "username",name:"username" },
+                          { data: "verification",name:"verification" },
+                          { data: "id_rep",name:"id_rep",visible: false } ,
+                          { render: function(d,t,r){
+                                var $select = $("<select></select>", {
+                                    "id":"etat",
+                                    "value": d
+                                });
+                                $.each(times, function(k,v){
+                                    var $option = $("<option></option>", {
+                                        "text": v,
+                                        "value": v
+                                    });
+                                    if(d === v){
+                                        $option.attr("selected", "selected")
+
+                                    }
+                                    $select.append($option);
+                                });
+                                return $select.prop("outerHTML");
+                            }
+                        }   
+            ],
+                 bFilter: false,
+           paging:  false,
+        bInfo : false,
+          
+            bDestroy: true
+                 
+                
+          
+        });
+
+        });
+       $('#student_rep').on('submit', function(event){
+       
+    
+    $('#form_output2').html('');
+    $('#button_action2').val('insert');
+    $('#action2').val('Add');
+        event.preventDefault();
+        var form_data = $(this).serialize();
+        alert(form_data);
+        $.ajax({
+             type:'post',
+            url:"{{ url('postrep') }}",
+            data:form_data,
+            dataType:"json",
+            success:function(data)
+            {
+                if(data.error.length > 0)
+                {
+                    var error_html = '';
+                    for(var count = 0; count < data.error.length; count++)
+                    {
+                        error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+                    }
+                    $('#form_output2').html(error_html);
+                }
+                else
+                {
+                    $('#form_output2').html(data.success);
+                    $('#student_rep')[0].reset();
+                    $('#action2').val('Add');
+                    //$('.modal-title').text('Add Data');
+                    $('#button_action2').val('insert');
+                   // $('#student_table').DataTable().ajax.reload();
+                }
+            }
+        });
+        
     });
 
+    });
+ 
    // $('#reponse_table').DataTable().clear();
    // $('#reponse_table').DataTable().destroy();
    

@@ -25,14 +25,14 @@ class PostController extends Controller
     }
     public function get_id_class(Request $request)
     {
-        $request->session()->put('id_class', $request->get( 'id_class' ));
+        $request->session()->put('id_selected_class', $request->get( 'id_class' ));
     }
     public function get_post(Request $request)
     {
        
         $students  = Post::select('ID_post','objet','detail','type')
         ->where('ID_prof','=',$request->session()->get('id_prf'))
-        ->where('ID_class','=', $request->session()->get('id_class'))
+        ->where('ID_class','=', $request->session()->get('id_selected_class'))
         ->orderBy('date', 'DESC');
 
         return DataTables::of($students )

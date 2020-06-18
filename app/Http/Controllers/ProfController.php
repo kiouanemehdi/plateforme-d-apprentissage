@@ -134,7 +134,7 @@ Session::regenerate(true);
            $verification_code = Hash::make(Str::random(8));
            $request->session()->put('code', $verification_code);
          
-          Mail::to('rafapi9855@lerwfv.com')->send( new ConfirmMail($verification_code) );
+          Mail::to('elkanafaoui@gmail.com')->send( new ConfirmMail($verification_code) );
           $isStudent=false;
             return view('final_register',["isStudent"=>$isStudent]);
         }

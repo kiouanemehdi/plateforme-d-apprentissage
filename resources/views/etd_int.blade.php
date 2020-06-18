@@ -20,7 +20,7 @@
 <body >
     <div class="grid-container">
         <div class="area1">
-        <div class="header">
+        <div class="header"  style="background-color: #3e7aab">
            <a  class="btn btn-primary" style="float: right;" href="logout">Logout</a>
            <H2>PLATFPORM</H2>
            
@@ -71,7 +71,7 @@
                     </thead>
 
             </table>
-               <div class="write_rep">
+               <div class="write_rep" style="margin-left: 50px; ">
             <form method="POST" id="student_rep">
             <span id="form_output2"></span>
                 <div class="form-group row">
@@ -82,7 +82,7 @@
             </div>
 
             <input type="hidden" name="button_action2" id="button_action2" value="insert" />
-         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" />
+         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" style="margin-left:700px ;" />
             </form>
 
         </div>
@@ -184,7 +184,7 @@ $(document).ready(function() {
          scrollY: "250px",
         scrollCollapse: true,
         paging:  false,
-           lengthChange: false,
+          
         bDestroy: true
      });
      $('#student_table_post').DataTable({

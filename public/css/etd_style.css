@@ -1,7 +1,7 @@
 .grid-container{
 
   display: grid;
-  border: 1px solid black;
+  grid-template-rows: 10% 70%;
   grid-row-gap: 2px;
 
 }
@@ -9,12 +9,14 @@
 	border: 1px solid black;
 
 }
-.headr{
+.header{
 	
 }
 .area2{
 	display: grid;
+
 	grid-template-columns: 30% 70%;
+
 }
 .area2 > * {
 	border: 1px solid black;
@@ -29,7 +31,8 @@
 
 .area2 > .item2 > .reponse {
 	display: grid;
-	grid-template-rows: 80% 20%;
+
+	
 }
 .dataTables_filter, .dataTables_info { display: none; }
 table tr{
