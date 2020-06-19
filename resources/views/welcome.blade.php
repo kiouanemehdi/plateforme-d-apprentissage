@@ -65,7 +65,7 @@
     </div>
   </div>
 </div>
-<center>
+<center> 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner" style="width:100%;height: 500px;">
     <div class="carousel-item active">
