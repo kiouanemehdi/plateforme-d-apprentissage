@@ -20,16 +20,16 @@
 </head>
 <body>
     <div class="grid-container">
-        <div class="header"  >
-       
-        <div  style="background-color: blue; ">
-             <h2 style="float:left;" id='name'> bienvenue ** {{ Session::get('prf_username')}} ** id : {{ Session::get('id_prf')}} ** class id {{Session::get('id_selected_class')}} </h2>
-              
-        </div>
-        <div style="margin-top: 40px;">
+        <div class="header" style="background-color: #f7fff7" >
+        <img style="margin:0;" src="{{ URL::asset('img/logo-sfe.png') }}">
+            <!-- <h2 style="float:left;" id='name'> Bienvenue: {{ Session::get('prf_username')}} </h2>-->
+     
+     <select id="select_id" style="margin-left:370px; 
 
-      
-       <select id="select_id" >  
+  height: 40px;
+  border: 2px solid #4c99ab;
+  border-radius: 5px;
+  overflow: hidden;"  >  
           
           <option selected="true" disabled="disabled">Choose your class</option>
        @foreach ($namess as $key )
@@ -37,22 +37,17 @@
     
 @endforeach
 
-       </select>
+       </select> 
 
-<a style="float:right;" class="btn btn-primary" href="logout">Log out</a>
-        <button name="add-class" id="add-class" type="button" class="btn btn-primary" data-toggle="modal" >ADD NEW Class</button>
+        <a style="float:right;" class="btn" href="logout" id="logout">Log out</a>
+        <button name="add-class" id="add-class" type="button" class="btn btn-info" data-toggle="modal" >ADD NEW Class</button>
+        </div>
+        <button name="add" id="add_data" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">ADD NEW POST</button>
 
-        </div>
-       
-        </div>
-        
-        <div class="">
-        <button name="add" id="add_data" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">ADD NEW POST</button>
-        </div>
         <div class="post">
-            <h4>My Posts : </h4>
-            <table id="student_table" class="table table-bordered " style="width:100% ; border: 1px solid;">
-                <thead>
+        <center> <h4 style="font-weight: bold;margin-top:20px;color:#4c99ab;">My posts</h4></center>
+            <table id="student_table" class="" style="width:400px ;">
+                <thead style="display:none;">
                     <tr>
                         
                         <th>objet</th>
@@ -62,9 +57,9 @@
                     </tr>
                 </thead>
          </table><br>
-         <h4>Students Posts : </h4>
-          <table id="student_table_post" class="table table-bordered" style="width:100%; border: 1px solid;" >
-                <thead >
+         <center> <h4 style="font-weight: bold;color:#4c99ab;">Student Posts</h4></center>
+          <table id="student_table_post" class="" style="width:400px;" >
+                <thead style="display:none;">
                     <tr>
                         
                         <th>objet</th>
@@ -77,8 +72,8 @@
         </div>
 
         <div class="reponse">
-            <table id="reponse_table" class="table table-bordered" width="900px">
-                    <thead>
+            <table id="reponse_table" class="" width="900px">
+                    <thead style="display:none;">
                         <tr>   
                            
                             <th>Posts</th>
@@ -89,7 +84,7 @@
                         </tr>
                     </thead>
             </table>
-             <div class="write_rep" style="margin-left: 100px; width: 900px;">
+             <div class="write_rep" style="margin-left: 30px;">
             <form method="POST" id="student_rep" >
             <span id="form_output2"></span>
                 <div class="form-group row">
@@ -97,16 +92,16 @@
                     <div class="col-sm-10">
                     <textarea class="form-control" type="text" name="contenu" id="contenu"></textarea>
                     </div>
-            </div>
+           
 
             <input type="hidden" name="button_action2" id="button_action2" value="insert" />
-         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info" style="margin-left: 690px;" />
-            </form>
+         <input type="submit" name="submit" id="action2" value="Add" class="btn btn-info"style="width:100px" />
+            </div>
+        </form>
 
         </div>
         </div>
-        <div class="avg_qst_rep_time"></div>
-        <div class="people_online"></div>
+
     </div>
 
     <!-- Modal -->
@@ -267,7 +262,7 @@ $('#student_table_post').DataTable({
             { data: "id",name:"id",visible: false }         
         ],
         
-        scrollY: "90px",
+        scrollY: "200px",
         scrollCollapse: true,
         paging:  false,
         bInfo : false,
@@ -286,7 +281,7 @@ $('#student_table_post').DataTable({
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
-          scrollY: "90px",
+         scrollY: "200px",
         scrollCollapse: true,
         paging:  false,
         bInfo : false,
@@ -350,6 +345,9 @@ $('#student_table_post').DataTable({
     });  
 } ,*/
 bFilter: false,
+scrollCollapse: true,
+lengthChange: false,
+            scrollY: "500px",
            paging:  false,
         bInfo : false,
           
@@ -404,7 +402,9 @@ bFilter: false,
                  bFilter: false,
            paging:  false,
         bInfo : false,
-          
+        scrollCollapse: true,
+lengthChange: false,
+            scrollY: "500px",
             bDestroy: true
                  
                 

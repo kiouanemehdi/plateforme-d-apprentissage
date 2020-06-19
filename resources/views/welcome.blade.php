@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ URL::asset('css/acceuil_style.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>Document</title>
@@ -14,19 +15,10 @@
 
  
 <div id="nav-bar">
-	<button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Login</button>
-	<div id="signup-login">
-		<ul>
-			<li><button id="sinup-b" class="btn btn-secondary" style="margin-right: 15px;">Signup</button></li>
-			<li class="drop-down "><a href="instructor-sign-up.php?type=instructor"><button id="instructor-sign-up" class="btn btn-secondary">Signup as intsructor </button></a></li>
-			<li class="drop-down"><a href="Sinup-form.php?type=student"><button id="student-sign-up" class="btn btn-secondary">Signup as student </button></li></a>
+	<button id="login" type="button" class="btn" data-toggle="modal" data-target="#exampleModal">Login</button>
 
-		</ul>
-		
-		
-	</div>
 
-    <p id="title"><b>Piazza Clone</b></p>
+    <div id="title"> <img style="margin:0;" src="{{ URL::asset('img/logo-sfe.png') }}"></div>
     
 	
 </div>
@@ -73,46 +65,37 @@
     </div>
   </div>
 </div>
-<div id="slider">
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-       <!--<img src="https://www.caci.co.uk/sites/default/files/styles/showcase-image/public/article%20header%202000px.jpg?itok=7kCjWLky" alt="...">-->
-      
+<center>
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner" style="width:100%;height: 500px;">
+    <div class="carousel-item active">
+      <img class="tales"  src="{{ URL::asset('img/img1.jpg') }}" alt="First slide">
     </div>
-    <div class="item">
-     <!-- <img src="https://www.caci.co.uk/sites/default/files/styles/showcase-image/public/article%20header%202000px.jpg?itok=7kCjWLky" alt="...">-->
-      
+    <div class="carousel-item">
+      <img class="tales" src="{{ URL::asset('img/img2.jpg') }}"alt="Second slide">
     </div>
-   
+    <div class="carousel-item">
+      <img class="tales" src="{{ URL::asset('img/img3.jpg') }}" alt="Third slide">
+    </div>
   </div>
-
-  <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
 </div>
-</div>
+</center>
+
 <center>
 <div id="late-signup">
 <form action="universite" method='get'>
 
-	<button type='submit' name="type" value="etd" class="btn btn-primary">Get Started as Student </button>
+	<button id="bt1" type='submit' name="type" value="etd" class="btn">Get Started as Student </button>
 
-	<button type='submit' name="type" value="prf" class="btn btn-primary">Get Started as Instructor </button>
+	<button id="bt2"  type='submit' name="type" value="prf" class="btn">Get Started as Instructor </button>
 
 </form>
 	
@@ -126,8 +109,6 @@
 	
 </div>
 </center>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 

@@ -30,7 +30,7 @@
             <div class="item1">
        <button id="add_student_post" class="btn" >+Add New Post</button>
            <div class="post" >
-           <center> <h4 style="font-weight: bold;margin-top:20px;color:#4c99ab;">Student Posts</h4><center>
+           <center> <h4 style="font-weight: bold;margin-top:20px;color:#4c99ab;">Student Posts</h4></center>
         <table id="student_table_post" class="" width="400px">
                 <thead style="display:none;">
                     <tr>
