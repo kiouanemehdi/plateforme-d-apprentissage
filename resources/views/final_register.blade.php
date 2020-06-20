@@ -22,6 +22,9 @@
 @endsection
 @else
 @section('last')
+<center>
+    <div style="width: 50%; border: 1px solid black; margin-top:50px; border-radius: 25px;background-color: white; " >
+
 <form  action="last_step_prf" method="POST">
 @csrf
         <label>verification code</label>
@@ -34,6 +37,8 @@
         <input type="password" name="confirm_password" class="form-control"></input><br>
          <button type='submit' name="confirmer" class="btn-primary"> confirmer </button>           
     </form>
+</div>
+    </center>
 @endsection
 @endif
 

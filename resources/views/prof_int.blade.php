@@ -72,7 +72,7 @@
         </div>
 
         <div class="reponse">
-            <table id="reponse_table" class="" width="900px">
+            <table id="reponse_table" class="order-column" width="900px">
                     <thead style="display:none;">
                         <tr>   
                            

@@ -31,7 +31,7 @@
        <button id="add_student_post" class="btn" >+Add New Post</button>
            <div class="post" >
            <center> <h4 style="font-weight: bold;margin-top:20px;color:#4c99ab;">Student Posts</h4></center>
-        <table id="student_table_post" class="" width="400px">
+        <table id="student_table_post" class="reponse_table" width="400px">
                 <thead style="display:none;">
                     <tr>
                         
@@ -59,11 +59,11 @@
         </div>
         <div class="item2">
              <div class="reponse">
-        <table id="reponse_table" class="" width="900px">
+        <table id="reponse_table" class="repoonder"  width="900px">
                     <thead style="display:none;">
                       
                         <tr> 
-                           <th width="">u</th>  
+                           <th width="" style="color: blue;">u</th>  
                             <th>Posts</th>
                             <th>verification</th> 
                         </tr>
@@ -171,16 +171,19 @@
     }
 })
 $(document).ready(function() {
+     
     $('#student_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: "{{ route('postg_etd') }}",
+        
         columns:[
             { data: "objet",name:"objet" },
             { data: "detail",name:"detail" },
             { data: "type",name:"objet" },
             { data: "id",name:"id",visible: false }         
         ],
+        
          bInfo : false,
          scrollY: "200px",
         scrollCollapse: true,
@@ -210,8 +213,8 @@ $(document).ready(function() {
      });
 
 
-
 var table = $('#student_table').DataTable();
+
     $('#student_table tbody').on( 'click', 'tr', function () {
             var row= table.row( this ).data();
             var id=row['id'];
@@ -229,12 +232,14 @@ var table = $('#student_table').DataTable();
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('reponse_get') }}",
-                    columns:[
+                    
+                    "columns":[
                         { data: "username",name:"username" },
                         { data: "contenu",name:"contenu" } ,
                         { data: "verification",name:"verification" }
                         //   { data: "ID_etd",name:"ID_etd" }          
             ],
+            
           
             bFilter: false,
             scrollY: "500px",
@@ -264,7 +269,7 @@ var table = $('#student_table').DataTable();
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('reponse_get1') }}",
-                    columns:[
+                    "columns":[
                         { data: "username",name:"username" },
                           { data: "contenu",name:"contenu" },
                           { data: "verification",name:"verification" }

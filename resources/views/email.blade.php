@@ -17,11 +17,11 @@
   @endif
 <form action="profemail_verification" id="stt" method="post" >
 @csrf
-        <label>entrer email</label>
-        <input type="text" name="email" id="email" class="form-control" placeholder="entrer email"></input><br>
-        <label>confirmer l'email</label>
-        <input type="text" name="email_confirm" id="email_confirm" class="form-control" placeholder="confirmer email"></input>
-         <input type="submit" id="stt" name=""> 
+        <label style="font-size:25px; ">Entrer votre  Email</label>
+        <input type="text" name="email" id="email" class="form-control" placeholder="example@edu.<?php echo Session::get('domain'); ?> "></input><br>
+        <label style="font-size:25px; ">Confirmer Votre Email</label>
+        <input type="text" name="email_confirm" id="email_confirm" class="form-control" placeholder="example@uiz.<?php echo Session::get('domain'); ?>  "></input>
+         <input type="submit" id="stt" name="" class="btn btn-primary" style="margin-top: 10px;"> 
          <p class="form-mesage"></p>
     </form>
   
@@ -43,9 +43,9 @@
 @csrf
 
         <label style="font-size: 25px;">entrer professor  email</label>
-        <input type="text" name="email" id="email" style="width: 500px;" class="form-control" placeholder="example@uiz.est"></input><br>
+        <input type="text" name="email" id="email" style="width: 500px;" class="form-control" placeholder="example@uiz.<?php echo Session::get('domain'); ?> "></input><br>
         <label style="font-size: 25px;">confirmer l'email</label>
-        <input type="text" name="email_confirm" id="email_confirm" style="width: 500px;" class="form-control" placeholder="Enter password ..."></input>
+        <input type="text" name="email_confirm" id="email_confirm" style="width: 500px;" class="form-control" placeholder="example@uiz.<?php echo Session::get('domain'); ?>  "></input>
 
          <button type='submit' class="btn btn-primary " style="margin: 25px;"> choisir </button>           
     </form>

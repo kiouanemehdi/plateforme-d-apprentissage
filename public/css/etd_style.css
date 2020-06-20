@@ -121,4 +121,13 @@ font-size:30px;
 }
 
 
-
+.area2 > .item2 >.reponse >.reponse_table > *{
+    color: yellow;
+    background-color: black;
+}
+.repoonder > .odd > .sorting_1{
+    color:  blue;
+}
+.warninng{
+    background-color: #f99 !important;
+}

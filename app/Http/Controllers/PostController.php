@@ -64,7 +64,7 @@ class PostController extends Controller
             {
                 $student = new Post([
                     'ID_prof'     =>   $request->session()->get('id_prf'),
-                    'ID_class' =>  $request->session()->get('id_class'),
+                    'ID_class' =>  $request->session()->get('id_selected_class'),
                     'objet'     =>  $request->get('objet'),
                     'detail'     =>  $request->get('detail'),
                     'type'    =>  $request->get('type'),
