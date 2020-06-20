@@ -35,7 +35,7 @@ Route::post('email', 'UniversiteController@get_domain');
 //request from the email page form in the views folder 
 Route::post('email_verification', 'EtudiantController@test_email');
 
-Route::post('profemail_verification', 'ProfController@test_email');
+Route::post('profemail_verification', 'ProfController@test_email')->name('profemail_verification');
 
 Route::post('last_step_etd', 'EtudiantController@register');
 

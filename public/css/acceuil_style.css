@@ -66,12 +66,12 @@ float: right;
 #late-signup button{
 margin-right: 90px;
 }
-body>center>#end-nav-bar {
+body> center> #end-nav-bar {
 		height: 200px;
 	width:100%;
     margin-bottom: 0;
-
-	background-color:#f7fff7;
+background-color:#f7fff7;
+	
 padding: 18px;
 
 }

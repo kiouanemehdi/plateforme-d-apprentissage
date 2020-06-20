@@ -61,6 +61,7 @@ class UniversiteController extends Controller
         $univ_id=Universite::find($id);
         $domain=$univ_id['domain'];
         $request->session()->put('domain', $domain); 
+         $request->session()->put('error-mail', 'false');
          $isStudent=$request->session()->get('is_etudiant');
         return view('email',["isStudent"=>$isStudent]);
         // $domain=Universite::select('domain')->where('ID_univ', $id)->get();

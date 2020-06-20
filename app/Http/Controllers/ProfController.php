@@ -46,6 +46,7 @@ class ProfController extends Controller
                 $etd->email=$request->session()->get('email');
                 $etd->password=$password;
                 $etd->save();
+                return view('welcome');   
             }
            // return view('login');
     }
@@ -97,19 +98,27 @@ Session::regenerate(true);
     } 
   public function test_email(Request $request)
     {
-        
+      
+          
         $dom=$request->session()->get('domain');
         $domain="";
         $is_confirmed=false;
         $is_valid=false;
         $email = $request->input('email');
         $email2= $request->input('email_confirm');
+         $isStudent=$request->session()->get('is_etudiant');
         if(strcasecmp($email,$email2) == 0)
             {
                 $is_confirmed=true;
+                 $request->session()->put('error-mail', 'true');
+               
             }
-        
-            $domain='@'.$dom;
+           if($isStudent){
+                 $domain='@edu.'.$dom;
+           } else if(!$isStudent){
+                 $domain='@uiz.'.$dom;
+           }
+            
             $test_em=strstr($email,$domain);
             if(strcasecmp($test_em,$domain) == 0)
             {
@@ -121,25 +130,30 @@ Session::regenerate(true);
        
         if($is_valid==false)
         {
-              echo 'le domain doit etre : @'.$dom;           
+          
+        return view('email',["isStudent"=>$isStudent]);     
         }
         if ($is_confirmed==false)
         {
-            echo "email non confirmer";
+            $isStudent=$request->session()->get('is_etudiant');
+        return view('email',["isStudent"=>$isStudent]); 
         }
         if($is_valid==true && $is_confirmed==true )
         {
             $request->session()->put('email', $email);
            // $code=send_code($email);
-           $verification_code = Hash::make(Str::random(8));
+          //s $verification_code = Hash::make(Str::random(8));
+            $verification_code = "111";
            $request->session()->put('code', $verification_code);
          
-          Mail::to('elkanafaoui@gmail.com')->send( new ConfirmMail($verification_code) );
-          $isStudent=false;
+         // Mail::to('rafapi9855@lerwfv.com')->send( new ConfirmMail($verification_code) );
+           $isStudent=$request->session()->get('is_etudiant');
             return view('final_register',["isStudent"=>$isStudent]);
         }
 
-    }
+        }
+
+    
     
 
     /**

@@ -123,7 +123,7 @@ class EtudiantController extends Controller
                 $etd->email=$request->session()->get('email');
                 $etd->password=$password;
                 $etd->save();
-            }
+                return view('welcome');            }
     
     }
     public function check_login(Request $request){
