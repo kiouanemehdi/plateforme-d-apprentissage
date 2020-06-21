@@ -15,14 +15,14 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
     <title>Document</title>
 </head>
-<body>
-
+<body style="background-color:#f7fff7;">
+<center>
 <form method="post" id="form_choix" action='before_int'>
 @csrf
-    <h2>classes dans lesquelles vous etes inscrit</h2><br>
-    <div class="form-group row">
+    <h2 style="font-weight:bold; color:#4c99ab;">Classes dans lesquelles vous etes inscrit</h2><br>
+   
                 
-                <div class="col-sm-10">
+                <div class="col-sm-2">
     <select class="form-control" type="text" name="inscrit_class" id="inscrit_class">
     <option selected="true" disabled="disabled">Choose your class</option> 
         @foreach($class_inscrit as $key)
@@ -30,13 +30,22 @@
         <option value="{{$key->ID_class}}"> {{$key->class_name}} </option>
         @endforeach
     </select><br>
+
 </div>
-</div>
-<input type='submit' class="btn btn-primary" value="GOO"></input>
+<input style="    font-weight: bold;
+    color:#4c99ab;
+    border:2px solid #4c99ab;
+    height:60%;
+    width:8%;
+    padding:5px;
+    font-size:20px;
+    margin:15px;"  type='submit' class="btn" value="Entrer"></input>
+
+<center>
 </form>
 
-    <h2>classes dans lesquelles vous n etes pas inscrit</h2><br>
-    <div class="col-sm-10">
+    <h2 style="font-weight:bold; color:#4c99ab;">Classes dans lesquelles vous n etes pas inscrit</h2><br>
+    <div class="col-sm-2">
     <select class="form-control" name="other_class" id="other_class">
     <option selected="true" disabled="disabled">Choose your class</option> 
     
@@ -46,7 +55,7 @@
     </select><br>
     </div>
 
-
+    </center>
  <!-- Modal -->
  <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
